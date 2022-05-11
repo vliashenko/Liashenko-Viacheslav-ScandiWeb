@@ -21,8 +21,9 @@ The problems and bugs was haunting me and I couldn't help myself, but still I wa
 even not in a full month, maybe in a 27 days))<br>
 <br>
 There are some of photos of it:<br>
-![SCANDIWEBPLP](https://user-images.githubusercontent.com/87814580/167865024-b5967da1-6bf9-46d8-a6db-b85311e192e5.jpeg)
-![SCANDIWEBMINICART](https://user-images.githubusercontent.com/87814580/167865049-a70d220a-4f59-4a6c-a112-54ffe77d4f63.jpeg)
+
+![SCANDIWEBPLP](https://user-images.githubusercontent.com/87814580/167910967-a3d0274d-8d60-4aa1-befd-742f4d662f94.jpeg)
+
 
 <br>
 And yep, there is still a lil bug i didn't fix, so lets see, maybe I'll repair it soon)<br>
