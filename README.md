@@ -22,9 +22,11 @@ even not in a full month, maybe in a 27 days))<br>
 <br>
 There are some of photos of it:<br>
 
-![SCANDIWEBPLP](https://user-images.githubusercontent.com/87814580/167910967-a3d0274d-8d60-4aa1-befd-742f4d662f94.jpeg)
-![SCANDIWEBPDP](https://user-images.githubusercontent.com/87814580/167911037-5deedaf1-7594-4dc6-9f6b-6a1d2dbff8b9.jpeg)
+![PLP](https://user-images.githubusercontent.com/87814580/167911763-a3d564ce-065f-48d8-990f-85010fd9ee54.jpeg)
 
+![PDP](https://user-images.githubusercontent.com/87814580/167911775-725aca65-1b73-40a0-bacd-f775955d69db.jpeg)
+
+![CartPage](https://user-images.githubusercontent.com/87814580/167911785-70801a05-20f6-4072-9575-70adf610e572.jpeg)
 
 
 <br>
