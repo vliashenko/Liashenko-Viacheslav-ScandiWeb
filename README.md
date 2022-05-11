@@ -23,7 +23,6 @@ even not in a full month, maybe in a 27 days))<br>
 There are some of photos of it:<br>
 ![SCANDIWEBPLP](https://user-images.githubusercontent.com/87814580/167865024-b5967da1-6bf9-46d8-a6db-b85311e192e5.jpeg)
 ![SCANDIWEBMINICART](https://user-images.githubusercontent.com/87814580/167865049-a70d220a-4f59-4a6c-a112-54ffe77d4f63.jpeg)
-![SCANDIWEBCURRENCY](https://user-images.githubusercontent.com/87814580/167865081-3efe9b92-c7db-4c67-aea4-7b6656316ff4.jpeg)
 ![SCANDIWEBPDP](https://user-images.githubusercontent.com/87814580/167865117-9c59d828-8284-463b-92c7-cf9fac78c0b4.jpeg)
 ![SCANDIWEBCARTPAGE](https://user-images.githubusercontent.com/87814580/167865131-70c95377-e298-44e0-b3ed-8ecf8aaf3830.jpeg)
 <br>
