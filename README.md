@@ -7,7 +7,7 @@ The project took me a five full work days, which is around 40hours in sum.<br>
 BUT, before I even start it, I have spent around 3 weeks studying the React as I didn't<br>
 have much knowledge about this technology.<br>
 For this month I have studyed lots of usefull thing, such as: <br>
-1) How to fetch Data using Apollo Client from GQueryDB<br>
+1) How to fetch Data using Apollo Client from GraphQL DB<br>
 2) How to use Styled Components<br>
 3) Some of Cycles of ReactJS LifeSycle<br>
 4) Found out that React doesn't like images from your device and you should require them to use it properly<br>
