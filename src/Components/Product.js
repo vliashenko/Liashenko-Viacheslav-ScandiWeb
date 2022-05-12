@@ -180,12 +180,12 @@ class Product extends Component {
         this.setDefaultState(this.props.attributes, "Color", "Color");
         this.setState(()=> ({
             ID:this.getRandom(this.props.id)
-        }))
+        }))    
     }
 
+
     render() {
-        
-        const { cartIsOpen,brand, gallery, inStock, name, prices, currentCurrencyValue, attributes,getChosenProduct, getProductToCartPLP} = this.props;
+        const { cartIsOpen,brand, gallery, inStock, name, prices, currentCurrencyValue, attributes,getChosenProduct} = this.props;
         
         const quantity = 1;
         const chosenSize = this.state.chosenSize;

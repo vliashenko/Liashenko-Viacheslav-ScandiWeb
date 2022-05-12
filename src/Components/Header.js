@@ -410,7 +410,8 @@ class Header extends Component {
                             <MiniCartItem 
                                 currentCurrencyValue={currentCurrencyValue}
                                 productsInCart={productsInCart}
-                                handleChangeCart={this.props.handleChangeCart}/>
+                                handleChangeCart={this.props.handleChangeCart}
+                                totalForCart={this.props.totalForCart}/>
                             <Total>
                                 <TotalText>
                                     Total

@@ -160,6 +160,7 @@ class App extends Component {
           currentCurrencyValue={this.state.currentCurrencyValue}
           handleChangeCart={this.handleChangeCart}
           totalAmount={this.state.totalAmount}
+          totalForCart={this.totalForCart}
           />
         <Routes>
           <Route path="/" exact element={<PLP 

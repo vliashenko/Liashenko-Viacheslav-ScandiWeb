@@ -223,6 +223,22 @@ class MiniCartItem extends Component {
         return atrObjects
     }
 
+    onClickHandlerPlus = (product) => {
+        this.props.handleChangeCart(product, 1,product.id)
+
+        setTimeout(()=> {
+            this.props.totalForCart()
+        },0)
+    }
+
+    onClickHandlerMinus = (product) => {
+        this.props.handleChangeCart(product, -1,product.id)
+
+        setTimeout(()=> {
+            this.props.totalForCart()
+        },0)
+    }
+
     render() {
         const { productsInCart, currentCurrencyValue, handleChangeCart } = this.props;
         
@@ -261,11 +277,11 @@ class MiniCartItem extends Component {
                 </Left>
                 <Right>
                     <AmountContainer style={product.attributes.length > 2 ? {height: 294} : {height: 207}}>
-                        <Button onClick={()=> handleChangeCart(product, 1,product.id)}>
+                        <Button onClick={()=> this.onClickHandlerPlus(product)}>
                             <Plus/>
                         </Button>
                         <Amount>{product.quantity}</Amount>
-                        <Button onClick={()=> handleChangeCart(product, -1,product.id)}>
+                        <Button onClick={()=> this.onClickHandlerMinus(product)}>
                             <Minus/>
                         </Button>
                     </AmountContainer>
