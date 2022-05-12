@@ -36,9 +36,9 @@ For this month I have studyed lots of usefull thing, such as: <br>
       12) Product with same attributes can stack in the cart, while a product with different attributes appears as separate cart items.<br>
       13) Product brand and product name are joined together and rendered on the same line.<br>
       14) Cart Overlay has a scrollbar.<br>
-      15) Arrows are visible only when there are multiple images in CartPage.
+      15) Arrows are visible only when there are multiple images in CartPage.<br>
 <br>
-For me it was a long road to finish this project, I was about to quite it almost every last five days.<br>
+For me it was a long road to finish this project, I was about to quite it almost every of each last five days.<br>
 The problems and bugs was haunting me and I couldn't help myself, but still I was trying my best and finished it <br>
 even not in a full month, maybe in a 27 days))<br>
 <br>
