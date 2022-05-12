@@ -275,7 +275,7 @@ class CartItem extends Component {
         },0)
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.countTotal();
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
@@ -343,47 +343,7 @@ class CartItem extends Component {
         })
 
         return (
-            <>{itemInCart}
-             {/* <HR/>
-            <Container>
-                <Left>
-                    <Title>
-                        asdasd
-                    </Title> 
-                    <SubTitle>
-                        asdasd
-                    </SubTitle>
-                    <Price>
-                        234234
-                    </Price>
-                    <Size>
-                    {this.getAttributesSCUK(attributes, "Size", "Size", chosenSize)}
-                        {this.getAttributesSCUK(attributes, "Capacity","Capacity", chosenCapacity)}
-                        {this.getAttributesSCUK(attributes, "With USB 3 ports", "USB", chosenUSB)}
-                        {this.getAttributesSCUK(attributes, "Touch ID in keyboard", "Keyboard", chosenKeyboard)}
-                    </Size>
-                    <Color>
-                    {this.showColor(attributes,chosenColor)}
-                    </Color>
-                </Left>
-                <Right>
-                    <AmountContainer>
-                        <Button>
-                            <Plus />
-                        </Button>
-                        <Amount>1</Amount>
-                        <Button>
-                            <Minus/>
-                        </Button>
-                    </AmountContainer>
-                     <SliderContainer>
-                        <CartSlider />
-                    </SliderContainer>
-                </Right>
-               
-                
-            </Container> */}
-        </>
+            <>{itemInCart}</>
         );
     }
 }

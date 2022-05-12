@@ -20,15 +20,21 @@ class App extends Component {
       category: 'allProducts',
       chosenProduct: [],
       productsInCart: [],
+      totalAmount: 0
     }
   }
 
   getProductToCartPLP = (product) => {
-  
     let isInArray = false;
     this.state.productsInCart.forEach((el,i)=>{
-      if(el.id === product.id || el.chosenSize === product.chosenSize && el.chosenCapacity === product.chosenCapacity && el.chosenUSB === product.chosenUSB && el.chosenKeyboard === product.chosenKeyboard && el.chosenColor === product.chosenColor)
-      isInArray = true;
+      if(el.id === product.id && el.chosenSize === product.chosenSize && el.chosenCapacity === product.chosenCapacity && el.chosenUSB === product.chosenUSB && el.chosenKeyboard === product.chosenKeyboard && el.chosenColor === product.chosenColor ){
+        el.quantity += 1
+        isInArray = true;
+      } else if (el.id !== product.id && el.chosenSize === product.chosenSize && el.chosenCapacity === product.chosenCapacity && el.chosenUSB === product.chosenUSB && el.chosenKeyboard === product.chosenKeyboard && el.chosenColor === product.chosenColor){
+        el.quantity += 1
+        isInArray = true;
+      }
+      
     })
     if(!isInArray){
       this.setState(({productsInCart}) => ({
@@ -42,20 +48,20 @@ class App extends Component {
     const ind = this.state.productsInCart.indexOf(product);
     const arr = this.state.productsInCart;
     arr[ind].quantity += d;
-    
-    
-    if(arr[ind].quantity === 0){
-    const newArray = arr.filter((item) => item.id !== id)
-      this.setState(() => ({
-        productsInCart: [...newArray]
-    }))
-    
-    } else {
-      this.setState(() => ({
-            productsInCart: [...arr]
-        }))}
-    }
-    
+  
+  
+  if(arr[ind].quantity === 0){
+  const newArray = arr.filter((item) => item.id !== id)
+    this.setState(() => ({
+      productsInCart: [...newArray]
+  }))
+  
+  } else {
+    this.setState(() => ({
+          productsInCart: [...arr]
+      }))}
+  }
+  
 
   getChosenProduct = (prod,id) => {
     this.setState(() => ({
@@ -67,24 +73,38 @@ class App extends Component {
     this.setState(() => ({
         category: category
     }))
-}
+  }
 
-checkCartState = (state) => {
-    this.setState(() => {
-        return {
-            cartIsOpen: state  
-        }
+  checkCartState = (state) => {
+      this.setState(() => {
+          return {
+              cartIsOpen: state  
+          }
+      })
+  }
+
+  getCurrentCurrencyValue = (value) => {
+    this.setState(() => ({
+      currentCurrencyValue: value
+    }))
+  }
+
+  totalForCart = () => {
+    let itemsAmount = [];
+    this.state.productsInCart.map(el => {
+        itemsAmount.push(el.quantity);
     })
-}
+    let totalAmount =  itemsAmount.reduce((acc,curr) => {
+        acc+= curr   
+        return acc    
+    },0)
 
-getCurrentCurrencyValue = (value) => {
-  this.setState(() => ({
-    currentCurrencyValue: value
-  }))
-}
+    return this.setState(() => ({
+      totalAmount: totalAmount
+    }))
+  }
 
-
-  UNSAFE_componentWillMount() {
+  componentDidMount() {
 
     client.query({
       query:gql`
@@ -96,6 +116,7 @@ getCurrentCurrencyValue = (value) => {
               brand
               gallery
               inStock
+              description
               attributes{
                 type
                 name
@@ -138,6 +159,7 @@ getCurrentCurrencyValue = (value) => {
           productsInCart={this.state.productsInCart}
           currentCurrencyValue={this.state.currentCurrencyValue}
           handleChangeCart={this.handleChangeCart}
+          totalAmount={this.state.totalAmount}
           />
         <Routes>
           <Route path="/" exact element={<PLP 
@@ -150,6 +172,7 @@ getCurrentCurrencyValue = (value) => {
             getChosenProduct={this.getChosenProduct}
             getProductToCartPLP={this.getProductToCartPLP}
             chosenProduct={this.state.chosenProduct}
+            totalForCart={this.totalForCart}
           />}/>
           <Route path="/productPage" exact 
             element={
@@ -158,6 +181,7 @@ getCurrentCurrencyValue = (value) => {
                 cartIsOpen={this.state.cartIsOpen}
                 chosenProduct={this.state.chosenProduct}
                 getProductToCartPLP={this.getProductToCartPLP}
+                totalForCart={this.totalForCart}
                 />
               }/>
           <Route path="/cartPage" exact element={

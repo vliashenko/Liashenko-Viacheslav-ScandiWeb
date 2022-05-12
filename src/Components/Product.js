@@ -154,18 +154,25 @@ class Product extends Component {
             if(item.name === name) {
                 const { items } = item;
                 
-                getStatesHandler(par,items[0])
+                getStatesHandler(par,items[0]);
                
             }
         })
     }
 
     getRandom = (id) => {
-        let number = Math. floor(Math. random() * (100000 - 1 + 1)) + 1
-        return id + number
+        let number = Math.floor(Math.random() * (100000 - 1 + 1)) + 1;
+        return id + number;
+    }
+
+    onClickHandler = (item) => {
+        this.props.getProductToCartPLP(item);
+        setTimeout(() => {
+            this.props.totalForCart();
+        },0)
     }
     
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.setDefaultState(this.props.attributes, "Size", "Size");
         this.setDefaultState(this.props.attributes, "Capacity","Capacity");
         this.setDefaultState(this.props.attributes, "With USB 3 ports", "USB");
@@ -178,7 +185,7 @@ class Product extends Component {
 
     render() {
         
-        const {cartIsOpen,brand, gallery, inStock, name, prices, currentCurrencyValue, attributes,getChosenProduct, id, getProductToCartPLP} = this.props;
+        const { cartIsOpen,brand, gallery, inStock, name, prices, currentCurrencyValue, attributes,getChosenProduct, getProductToCartPLP} = this.props;
         
         const quantity = 1;
         const chosenSize = this.state.chosenSize;
@@ -196,7 +203,7 @@ class Product extends Component {
             }
         })
         
-
+        
         return (
             <Container inStock={inStock} onClick={() =>getChosenProduct(this.props)}>
                 <StyledLink to="/productPage" disabled={cartIsOpen=== true? true : false}>
@@ -207,7 +214,7 @@ class Product extends Component {
                     </OutOfStock>
                 </ImageContainer>
                 </StyledLink>
-                    <CartButton onClick={()=> getProductToCartPLP(item)}  disabled={inStock === false? true : false || cartIsOpen === true? true: false}>
+                    <CartButton onClick={()=> this.onClickHandler(item)}  disabled={inStock === false? true : false || cartIsOpen === true? true: false}>
                         <Cart src={require ('../Images/product-cart.png')}/>
                     </CartButton>
                 <Info>

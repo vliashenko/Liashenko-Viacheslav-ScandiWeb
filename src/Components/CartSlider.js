@@ -115,7 +115,10 @@ class CartSlider extends Component {
     render() {
         return (
             <Container>
-                <Arrow direction="left" onClick = {() => this.handleClick("left")}>
+                <Arrow 
+                    style={this.props.gallery.length > 1 ? {display: 'flex'} : {display: "none"}}
+                    direction="left" 
+                    onClick = {() => this.handleClick("left")}>
                     <ArrowImageLeft src={require ('../Images/slider-left.png')}/>
                 </Arrow>
                 <Wrapper slideIndex={this.state.slideIndex}>
@@ -129,7 +132,10 @@ class CartSlider extends Component {
                     )
                 })}
                 </Wrapper>
-                <Arrow direction="right" onClick = {() => this.handleClick("right")}>
+                <Arrow 
+                    style={this.props.gallery.length > 1 ? {display: 'flex'} : {display: "none"}}
+                    direction="right" 
+                    onClick = {() => this.handleClick("right")}>
                     <ArrowImageRight src={require ('../Images/slider-right.png')}/>
                 </Arrow>
             </Container>

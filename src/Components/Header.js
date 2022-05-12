@@ -51,7 +51,7 @@ const LineImage = styled.img`
 const ArrowImage = styled.img`
     position: absolute;
     top: 30%;
-    left: 61%;
+    left: 62%;
     width: 5.41px;
     height: 3.19px;
 `;
@@ -268,17 +268,28 @@ class Header extends Component {
         this.props.getCategory(category)
     }
 
-    setCurrencyOpen = () => {
-        this.setState(({currencyIsOpen})=> ({
-            currencyIsOpen: !currencyIsOpen
+    closeCurrency = () => {
+        this.setState(() => ({
+            currencyIsOpen: false
         }))
     }
 
-    setCartOpen = () => {
+    setCurrencyOpen = (e) => {
+        this.setState(({currencyIsOpen})=> ({
+            currencyIsOpen: !currencyIsOpen
+        }))
+        e.stopPropagation();
+        document.addEventListener("click", this.closeCurrency);
+        
+        
+    }
+
+    setCartOpen = (e) => {
         this.setState(({cartIsOpen})=> ({
             cartIsOpen: !cartIsOpen
         }))
-        setTimeout(() => {
+
+        setTimeout(()=> {
             this.props.checkCartState(this.state.cartIsOpen)
         },0)
     }
@@ -316,10 +327,9 @@ class Header extends Component {
     
     }
 
-
     render() {
-        const { productsInCart, currentCurrencyValue } = this.props;
-
+        const { productsInCart, currentCurrencyValue,totalAmount } = this.props;
+       
         return (
             <Container>
                 <Left>
@@ -354,13 +364,15 @@ class Header extends Component {
                 </Center>
                 <Right>
                     <Currency >
-                        <CurrencySign disabled={this.state.cartIsOpen === true? true:false} onClick = {this.setCurrencyOpen}>
+                        <CurrencySign  
+                            disabled={this.state.cartIsOpen === true? true:false} 
+                            onClick = {this.setCurrencyOpen}>
                         {this.getCurrencySign()}   
                         </CurrencySign>
                         
                         <CurrencyVector onClick = {this.setCurrencyOpen} src={require ('../Images/vector-arrow.png')}/>
                         {this.state.currencyIsOpen && 
-                            <CurrencyMenu>
+                            <CurrencyMenu onClick={this.setCurrencyOpen}>
                             <CurrencyItem 
                             activeCurrency={this.state.activeCurrencyValue === "USD"? 'true' : 'false'} 
                             onClick={() => this.onClickCurrency('USD')}>$ USD</CurrencyItem>
@@ -373,13 +385,21 @@ class Header extends Component {
                             </CurrencyMenu>
                         }
                     </Currency>
-                    <CartContainer onClick={this.countTotal} disabled={this.state.currencyIsOpen === true? true:false}>
-                        <CartImage onClick = {this.setCartOpen} src={require ('../Images/cart.png')}/>
-                        {productsInCart.length > 0 && <CartQuantity >{productsInCart.length}</CartQuantity>}
+                    <CartContainer 
+                        onClick={this.countTotal} 
+                        disabled={this.state.currencyIsOpen === true? true:false}>
+                        <CartImage 
+                            onClick = {this.setCartOpen} 
+                            src={require ('../Images/cart.png')}/>
+                        {productsInCart.length > 0 && 
+                        <CartQuantity>
+                            {totalAmount}
+                        </CartQuantity>}
+                          
                         {this.state.cartIsOpen && 
-                        <CartListContainer>
+                        <CartListContainer style={ productsInCart.length > 0 ?{overflowY: "scroll", height:'400px'} : {height: '10px'}}>
                             {productsInCart.length > 0? 
-                            <MiniCartContent>
+                            <MiniCartContent >
                             <Title>
                                 My Bag,
                                 <ItemCount>

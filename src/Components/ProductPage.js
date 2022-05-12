@@ -331,15 +331,19 @@ class ProductPage extends Component {
     }
 
     addingHandler = (item) => {
+        
         this.setState(()=> ({
             ID: this.getRandom(this.props.chosenProduct.id)
         }));
 
         this.props.getProductToCartPLP(item);
-        
+
+        setTimeout(() => {
+            this.props.totalForCart()
+        },0)
     }
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         this.setDefaultState(this.props.chosenProduct.attributes, "Size", "Size");
         this.setDefaultState(this.props.chosenProduct.attributes, "Capacity","Capacity");
         this.setDefaultState(this.props.chosenProduct.attributes, "With USB 3 ports", "USB");
@@ -352,9 +356,9 @@ class ProductPage extends Component {
 
     render() {
 
-        const { chosenProduct,cartIsOpen, currentCurrencyValue, getProductToCartPLP } = this.props;
-        const { brand, name, inStock, gallery, attributes,prices, id } = chosenProduct;
-        
+        const { chosenProduct,cartIsOpen, currentCurrencyValue } = this.props;
+        const { brand, name, inStock, gallery, attributes,prices, description } = chosenProduct;
+
         const quantity = 1;
         const chosenSize = this.state.chosenSize;
         const chosenColor = this.state.chosenColor;
@@ -414,15 +418,13 @@ class ProductPage extends Component {
                         <PriceItem>{price}</PriceItem>
                     </Price>
                     <Button 
-                    onClick={() =>this.addingHandler(item)}
+                        onClick={() =>this.addingHandler(item)}
                         inStock={inStock} 
                         disabled={inStock === false? true : false}>
                             ADD TO CART
                         </Button>
-                    <Desc>
-                    Find stunning women's cocktail dresses and party dresses.
-                    Stand out in lace and metallic cocktail dresses and party
-                    dresses from all your favorite brands.
+                    <Desc dangerouslySetInnerHTML={{ __html: description }}>
+                        
                     </Desc>
                 </Right>
             </Container>

@@ -25,7 +25,7 @@ class Products extends Component {
 
     render() {
 
-        const { cartIsOpen,allProducts, tech, clothes, category, currentCurrencyValue, getChosenProduct, getProductToCartPLP} = this.props;
+        const { cartIsOpen,allProducts, tech, clothes, category, currentCurrencyValue, getChosenProduct, getProductToCartPLP,totalForCart} = this.props;
         
         
         const showCategory = (category) => {
@@ -43,6 +43,7 @@ class Products extends Component {
                             currentCurrencyValue={currentCurrencyValue}
                             id={id}
                             getProductToCartPLP={getProductToCartPLP}
+                            totalForCart={totalForCart}
                             {...productProps}/>)
                     })
                 } else if (category === "tech") {
@@ -55,6 +56,7 @@ class Products extends Component {
                             currentCurrencyValue={currentCurrencyValue}
                             id={id}
                             getProductToCartPLP={getProductToCartPLP}
+                            totalForCart={totalForCart}
                             {...productProps}/>)
                     })
                 } else if (category === "clothes") {
@@ -67,13 +69,13 @@ class Products extends Component {
                             currentCurrencyValue={currentCurrencyValue}
                             id={id}
                             getProductToCartPLP={getProductToCartPLP}
+                            totalForCart={totalForCart}
                             {...productProps}/>)
                     })
                 }
             }
             
         }
-
 
         return (
             <Container cartIsOpen={this.props.cartIsOpen}>

@@ -18,6 +18,7 @@ class PLP extends Component {
                 category={this.props.category}
                 getChosenProduct={this.props.getChosenProduct}
                 getProductToCartPLP={this.props.getProductToCartPLP}
+                totalForCart={this.props.totalForCart}
                 />
             </Container>
         );

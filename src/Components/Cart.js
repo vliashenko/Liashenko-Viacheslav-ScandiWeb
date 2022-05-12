@@ -131,19 +131,19 @@ class Cart extends Component {
                 <Tax>
                     Tax 21%:
                     <TaxContent>
-                    {this.getCurrencySign()}{this.state.totalTax}
+                        {productsInCart.length > 0?  `${this.getCurrencySign()} ${this.state.totalTax}` : `${this.getCurrencySign()}0`}
                     </TaxContent>
                 </Tax>
                 <Quantity>
                     Quantity:
                     <QuantityContent>
-                        {this.state.totalAmount}
+                       {productsInCart.length > 0 ?  this.state.totalAmount : 0 } 
                     </QuantityContent>
                 </Quantity>
                 <Total>
                     Total:
                     <TotalContent>
-                    {this.getCurrencySign()}{this.state.totalPrice}
+                    {productsInCart.length > 0? `${this.getCurrencySign()} ${this.state.totalPrice}` : `${this.getCurrencySign()}0`}
                     </TotalContent>
                 </Total>
                 <Button>
