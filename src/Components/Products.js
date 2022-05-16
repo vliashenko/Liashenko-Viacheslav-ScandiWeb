@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Product from './Product';
+import FetchCategory from '../Functions/FetchCategory';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -22,68 +23,88 @@ const ProductsContainer = styled.div`
 `;
 
 class Products extends Component {
+    constructor(props){
+        super(props);
+
+        this.state = {
+            currentCategory: []
+        }
+    }
+
+    showCategory = () => {
+        if(this.state.currentCategory !== undefined){
+        let result  = this.state.currentCategory.map((product,i) => {
+                    const {id,...productProps} = product;
+                    return (
+                        <Product 
+                            key={i}
+                            cartIsOpen={this.props.cartIsOpen}
+                            getChosenProduct={this.props.getChosenProduct} 
+                            currentCurrencyValue={this.props.currentCurrencyValue}
+                            id={id}
+                            getProductToCartPLP={this.props.getProductToCartPLP}
+                            totalForCart={this.props.totalForCart}
+                            {...productProps}/>
+                        )
+        }) 
+        return result
+                    
+        }
+            
+    }
+
+    componentDidMount() {
+        if(this.props.category !== null) {
+            FetchCategory().then(res => {
+        
+                let categories = res.data.categories;
+                    
+                let filtered = categories.filter(el => el.name === this.props.category);
+
+                let result = filtered[0].products
+                
+                setTimeout(() => {
+                    this.setState(()=>({
+                        currentCategory: result
+                    }))
+                },0)
+    
+                 })
+        }
+    }
+
+    componentDidUpdate() {
+
+        if(this.props.category !== null) {
+
+            FetchCategory().then(res => {
+        
+            let categories = res.data.categories;
+                
+            let filtered = categories.filter(el => el.name === this.props.category);
+            
+            let result = filtered[0].products
+            
+            setTimeout(() => {
+                this.setState(()=>({
+                    currentCategory: result
+                }))
+            },0)
+
+            })
+
+        }
+    }
 
     render() {
-
-        const { cartIsOpen,allProducts, tech, clothes, category, currentCurrencyValue, getChosenProduct, getProductToCartPLP,totalForCart} = this.props;
         
-        
-        const showCategory = (category) => {
-
-
-            if(allProducts !== null && tech !== null && clothes !== null) {
-
-                if(category === "allProducts") {
-                  return  allProducts.map(product => {
-                        const {id,...productProps} = product;
-                        return (<Product 
-                            key={id}
-                            cartIsOpen={cartIsOpen}
-                            getChosenProduct={getChosenProduct} 
-                            currentCurrencyValue={currentCurrencyValue}
-                            id={id}
-                            getProductToCartPLP={getProductToCartPLP}
-                            totalForCart={totalForCart}
-                            {...productProps}/>)
-                    })
-                } else if (category === "tech") {
-                    return tech.map(product => {
-                        const {id,...productProps} = product;
-                        return (<Product 
-                            key={id} 
-                            cartIsOpen={cartIsOpen}
-                            getChosenProduct={getChosenProduct}
-                            currentCurrencyValue={currentCurrencyValue}
-                            id={id}
-                            getProductToCartPLP={getProductToCartPLP}
-                            totalForCart={totalForCart}
-                            {...productProps}/>)
-                    })
-                } else if (category === "clothes") {
-                    return  clothes.map(product => {
-                        const {id,...productProps} = product;
-                        return (<Product 
-                            key={id} 
-                            cartIsOpen={cartIsOpen}
-                            getChosenProduct={getChosenProduct}
-                            currentCurrencyValue={currentCurrencyValue}
-                            id={id}
-                            getProductToCartPLP={getProductToCartPLP}
-                            totalForCart={totalForCart}
-                            {...productProps}/>)
-                    })
-                }
-            }
-            
-        }
-
         return (
             <Container cartIsOpen={this.props.cartIsOpen}>
                 <Title>
-                    Category name
+                   {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}
                 </Title>
-                <ProductsContainer >
-                    {showCategory(category)}
+                <ProductsContainer>
+                     {this.showCategory()}
                 </ProductsContainer>
             </Container>
         );

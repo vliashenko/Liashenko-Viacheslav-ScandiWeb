@@ -1,11 +1,25 @@
 import React, { Component } from 'react';
+import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
+
+const OutOfStock = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 38px;
+    letter-spacing: 0px;
+    color: black;
+    opacity: 0;
+    opacity: ${props => props.inStock === false && 1};
+`;
 
 const Container = styled.div`
     margin-top: 82px;
     padding-bottom: 178px;
     display: flex;
-
+    
     opacity: ${props=> props.cartIsOpen && "0.5"}
 `;
 
@@ -19,6 +33,8 @@ const SmallImageContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    pointer-events: ${props=> props.disabled === true && "none"};
     border: ${props => props.chosen === "true" && "1px solid #d7d7d778"}
 `;
 const SmallImage = styled.img`
@@ -39,6 +55,7 @@ const BigImageContainer = styled.div`
     @media (max-width:916px){
         width: 300px
     }
+    opacity: ${props => props.inStock === false &&  '0.5'};
 `;
 const BigImage = styled.img`
     width: 100%;
@@ -95,6 +112,7 @@ const SizeItem = styled.div`
     border: 1px solid #1D1F22;
     cursor: pointer;
 
+    pointer-events: ${props=> props.disabled === true && "none"};
     background: ${props => props.chosen === "true" && '#1D1F22'};
     color: ${props => props.chosen === "true" && 'white'};
 `;
@@ -107,14 +125,23 @@ const ColorContainer = styled.div`
     align-items: center;
 `;
 
+const ColorItemContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 33px;
+    height: 33px;
+    margin-right: 10px;
+    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
+`;
+
 const ColorItem = styled.div`
     width: 32px;
     height: 32px;
-    margin-right: 10px;
     cursor: pointer;
     background: ${props => props.bg};
-    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
     height: ${props => props.chosen === "true" && '30px'};
+    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 const Price = styled.div`
     margin-top: 38px;
@@ -235,7 +262,7 @@ class ProductPage extends Component {
         
        
         const atrObjects = attributes.map((item,i) =>{
-            if(item.name === name) {
+            if(item.name === name){ 
                 const { items } = item
                 return(
                     <div key={i}>
@@ -247,6 +274,7 @@ class ProductPage extends Component {
                     return  (
                             <SizeItem 
                             key={i}
+                            disabled={ this.props.cartIsOpen===true? true : false }
                             onClick={() => getFunctionHandler(par,el)}
                             chosen={getStatesHandler(par) === el? "true" : "false"}>
                                 {el.value}
@@ -255,7 +283,9 @@ class ProductPage extends Component {
                     })}    
                     </SizeContainer>
                     </div>
-                )}   
+                )} else {
+                    return null
+                }   
             })
         return atrObjects
     }
@@ -272,18 +302,21 @@ class ProductPage extends Component {
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
-                            <ColorItem 
-                            key={i}
-                            chosen={this.state.chosenColor === el.value? "true" :"false"} 
-                            onClick={()=>this.getChosenColor(el.value)} 
-                            bg={el.value}>
-                            </ColorItem>
+                            <ColorItemContainer key={i} chosen={this.state.chosenColor === el.value? "true" :"false"} >
+                                <ColorItem 
+                                    disabled={ this.props.cartIsOpen===true? true : false }
+                                    onClick={()=>this.getChosenColor(el.value)} 
+                                    bg={el.value}>
+                                </ColorItem>
+                            </ColorItemContainer>
                         ) 
                     })}    
                     </ColorContainer>
                     </div>
                 )   
                 
+            } else {
+                return null
             }
         })
         return atrObjects
@@ -318,15 +351,15 @@ class ProductPage extends Component {
         attributes.map(item => {
             if(item.name === name) {
                 const { items } = item;
-                
-                    getStatesHandler(par,items[0])
-               
+                return getStatesHandler(par,items[0])
+            } else {
+                return null
             }
         })
     }
 
     getRandom = (id) => {
-        let number = Math. floor(Math. random() * (100000 - 1 + 1)) + 1
+        let number = Math.floor(Math.random() * (100000 - 1 + 1)) + 1
         return id + number
     }
 
@@ -335,7 +368,7 @@ class ProductPage extends Component {
         this.setState(()=> ({
             ID: this.getRandom(this.props.chosenProduct.id)
         }));
-
+        
         this.props.getProductToCartPLP(item);
 
         setTimeout(() => {
@@ -368,20 +401,14 @@ class ProductPage extends Component {
         let ID = this.state.ID;
 
         const item = {brand, gallery, inStock, name, prices,attributes, id:ID,quantity, chosenSize,chosenCapacity,chosenColor,chosenUSB,chosenKeyboard}
-
-        const price = prices.map(item => {
-            if(item.currency.label === currentCurrencyValue) 
-                return `${item.currency.symbol} ${item.amount}`
-        
-        })
         
         return (
             <Container cartIsOpen={cartIsOpen}>
                 <Left>
                 {gallery.map((image, i)=> {
-                    if(i < 5)
                         return(
                         <SmallImageContainer
+                        disabled={ cartIsOpen===true? true : false }
                         chosen={this.state.currentImage === image && "true"}
                         key={i}>
                             <SmallImage 
@@ -391,8 +418,11 @@ class ProductPage extends Component {
                     })}
                 </Left>
                 <Center>
-                    <BigImageContainer>
+                    <BigImageContainer inStock={inStock}>
                         <BigImage src={this.state.currentImage}/>
+                        <OutOfStock inStock={inStock}>
+                        OUT OF STOCK
+                        </OutOfStock>
                     </BigImageContainer>
                 </Center>
                 <Right>
@@ -415,16 +445,16 @@ class ProductPage extends Component {
                         <SmallTitle>
                             PRICE:
                         </SmallTitle>
-                        <PriceItem>{price}</PriceItem>
+                        <PriceItem>{GetCurrentPrice(prices,currentCurrencyValue)}</PriceItem>
                     </Price>
                     <Button 
                         onClick={() =>this.addingHandler(item)}
                         inStock={inStock} 
-                        disabled={inStock === false? true : false}>
+                        disabled={inStock === false? true : false || cartIsOpen === true? true:false}>
                             ADD TO CART
                         </Button>
-                    <Desc dangerouslySetInnerHTML={{ __html: description }}>
-                        
+                    <Desc>
+                        {description.replace(/<\/?[^>]+(>|$)/g, "")}
                     </Desc>
                 </Right>
             </Container>

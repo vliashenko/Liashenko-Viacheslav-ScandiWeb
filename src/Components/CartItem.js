@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import CartSlider from '../Components/CartSlider';
+import CountTotal from '../Functions/CountTotal';
+import GetCurrentPrice from '../Functions/GetCurrentPrice.js'
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -161,6 +163,7 @@ class CartItem extends Component {
         
        
         const atrObjects = attributes.map((item,i) =>{
+            
             if(item.name === name) {
                 const { items } = item
                 return(
@@ -180,9 +183,12 @@ class CartItem extends Component {
                     })}    
                     </SizeContainer>
                     </div>
-                )}   
-            })
-        return atrObjects
+            )} else {
+                return null
+            }  
+        })
+        
+            return atrObjects
     }
    
     showColor = (attribute,chosenColor) => {
@@ -208,63 +214,34 @@ class CartItem extends Component {
                     </div>
                 )   
                 
+            } else {
+                return null
             }
         })
         return atrObjects
     }
 
     countTotal = () => {
-        let ans = [];
-        let itemsAmount = [];
-        let tax = [];
-        this.props.productsInCart.map(el => {
-            let realprice;
-            el.prices.forEach(item => {
-                if(item.currency.label === this.props.currentCurrencyValue) {
-                   realprice =  item.amount * ( 1 + 21 / 100 ) * el.quantity
-                   ans.push(realprice)
-                   itemsAmount.push(el.quantity)
-                   tax.push(((item.amount /100) *21) * el.quantity)
-                };
-            });
-        });
-
-        let totalTax =  tax.reduce((acc,curr) => {
-            acc+= curr   
-            return acc    
-        },0).toFixed(2);
-        
-
-        let totalAmount =  itemsAmount.reduce((acc,curr) => {
-            acc+= curr   
-            return acc    
-        },0);
-        
-        let totalPrice = ans.reduce((acc,curr) => {
-            acc+= curr   
-            return acc    
-        },0).toFixed(2);
+        this.setState(()=>({
+            totalAmount: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalAmount
+        }))
 
         this.setState(()=>({
-            totalAmount: totalAmount
-        }));
+            total: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalPrice
+        }))
 
         this.setState(()=>({
-            total: totalPrice
-        }));
-
-        this.setState(()=>({
-            totalTax: totalTax
+            totalTax: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalTax
         }));
     
     }
-
+    
     handlerMendlerPlus = (product) => {
         this.props.handleChangeCart(product, 1,product.id);
         this.countTotal();
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
-        },0)
+        },100)
     }
 
     handlerMendlerMinus = (product) => {
@@ -272,7 +249,7 @@ class CartItem extends Component {
         this.countTotal();
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
-        },0)
+        },100)
     }
 
     componentDidMount() {
@@ -288,13 +265,6 @@ class CartItem extends Component {
         const { productsInCart, currentCurrencyValue } = this.props;
 
         const itemInCart = productsInCart.map((product,i) => {
-            
-            const price = product.prices.map(item => {
-                if(item.currency.label === currentCurrencyValue) {
-                    
-                    return `${item.currency.symbol} ${item.amount}`
-                }
-            })
 
             return (
                 <div key={i}>
@@ -308,7 +278,7 @@ class CartItem extends Component {
                         {product.name}
                     </SubTitle>
                     <Price>
-                        {price}
+                        {GetCurrentPrice(product.prices, currentCurrencyValue)}
                     </Price>
                     <Size>
                         {this.getAttributesSCUK(product.attributes, "Size", "Size", product.chosenSize)}

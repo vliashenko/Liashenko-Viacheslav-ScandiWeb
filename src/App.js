@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { gql } from "@apollo/client"
-import { client } from '.';
 import Header from "./Components/Header";
 import PLP from './Pages/PLP';
 import PDP from './Pages/PDP';
@@ -12,12 +10,9 @@ class App extends Component {
     super(props);
 
     this.state = {
-      allProducts: null,
-      tech: null,
-      clothes: null,
-      cartIsOpen: null,
+      cartIsOpen: false,
       currentCurrencyValue: "USD",
-      category: 'allProducts',
+      category: 'all',
       chosenProduct: [],
       productsInCart: [],
       totalAmount: 0
@@ -92,7 +87,7 @@ class App extends Component {
   totalForCart = () => {
     let itemsAmount = [];
     this.state.productsInCart.map(el => {
-        itemsAmount.push(el.quantity);
+      return  itemsAmount.push(el.quantity);
     })
     let totalAmount =  itemsAmount.reduce((acc,curr) => {
         acc+= curr   
@@ -104,51 +99,7 @@ class App extends Component {
     }))
   }
 
-  componentDidMount() {
 
-    client.query({
-      query:gql`
-      query {
-          categories {
-             products{
-              id
-              name
-              brand
-              gallery
-              inStock
-              description
-              attributes{
-                type
-                name
-                items{
-                  value
-                }
-              }
-              prices{
-                currency{
-                  symbol
-                  label
-                }
-                amount
-              }
-            }
-          }
-        }
-      `
-    }).then(res => {
-
-      const all = res.data.categories[0].products;
-      const cloth = res.data.categories[1].products;
-      const tech = res.data.categories[2].products;
-
-      this.setState(() => ({
-        allProducts: all,
-        tech: tech,
-        clothes: cloth,
-      }))
-      
-    })
-  }
   render() {
     return (
       <BrowserRouter>
@@ -164,9 +115,6 @@ class App extends Component {
           />
         <Routes>
           <Route path="/" exact element={<PLP 
-            allProducts={this.state.allProducts}
-            tech={this.state.tech}
-            clothes={this.state.clothes}
             cartIsOpen={this.state.cartIsOpen}
             currentCurrencyValue={this.state.currentCurrencyValue}
             category={this.state.category}

@@ -72,13 +72,13 @@ class CartSlider extends Component {
                            } 
                         } else {
                             return {
-                                slideIndex: 4  
+                                slideIndex: this.props.gallery.length - 1  
                             } 
                         }
                     })
                 } else { 
                     this.setState(({slideIndex}) => {
-                        if(slideIndex < 4) {
+                        if(slideIndex < this.props.gallery.length - 1) {
                             return {
                                 slideIndex: slideIndex + 1  
                               } 

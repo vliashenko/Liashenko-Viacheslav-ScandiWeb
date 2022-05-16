@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import CartItem from './CartItem';
+import { GetCurrencySign } from '../Functions/GetCurrencySign';
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -90,16 +91,6 @@ class Cart extends Component {
         }
     }
 
-    getCurrencySign = () => {
-        if(this.props.currentCurrencyValue === "USD"){
-            return "$"
-        } else if (this.props.currentCurrencyValue === "GBP"){
-            return "£"
-        } else {
-            return "¥"
-        }
-    }
-
     getTotalAndAmountAndTax = (price, amount,tax) => {
         this.setState(()=> ({
             totalPrice: price,
@@ -131,7 +122,7 @@ class Cart extends Component {
                 <Tax>
                     Tax 21%:
                     <TaxContent>
-                        {productsInCart.length > 0?  `${this.getCurrencySign()} ${this.state.totalTax}` : `${this.getCurrencySign()}0`}
+                        {productsInCart.length > 0?  `${GetCurrencySign(this.props.currentCurrencyValue)} ${this.state.totalTax}` : `${GetCurrencySign(this.props.currentCurrencyValue)}0`}
                     </TaxContent>
                 </Tax>
                 <Quantity>
@@ -143,7 +134,7 @@ class Cart extends Component {
                 <Total>
                     Total:
                     <TotalContent>
-                    {productsInCart.length > 0? `${this.getCurrencySign()} ${this.state.totalPrice}` : `${this.getCurrencySign()}0`}
+                    {productsInCart.length > 0? `${GetCurrencySign(this.props.currentCurrencyValue)} ${this.state.totalPrice}` : `${GetCurrencySign(this.props.currentCurrencyValue)}0`}
                     </TotalContent>
                 </Total>
                 <Button>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
 
 const CartButton = styled.button`
@@ -107,7 +108,7 @@ const Price = styled.div`
 const StyledLink = styled(Link)`
     text-decoration: none;
 
-    pointer-events: ${props=> props.disabled === true && "none"}
+    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 
 class Product extends Component {
@@ -150,12 +151,12 @@ class Product extends Component {
             }
         }
 
-        attributes.map(item => {
+        return attributes.map(item => {
             if(item.name === name) {
                 const { items } = item;
-                
-                getStatesHandler(par,items[0]);
-               
+              return  getStatesHandler(par,items[0]);
+            } else {
+                return null
             }
         })
     }
@@ -196,14 +197,8 @@ class Product extends Component {
         let ID = this.state.ID;
 
         const item = {brand, gallery, inStock, name, prices,attributes,id:ID,quantity, chosenSize,chosenCapacity,chosenColor,chosenUSB,chosenKeyboard}
-
-        const price = prices.map(item => {
-            if(item.currency.label === currentCurrencyValue) {
-                return `${item.currency.symbol} ${item.amount}`
-            }
-        })
         
-        
+    
         return (
             <Container inStock={inStock} onClick={() =>getChosenProduct(this.props)}>
                 <StyledLink to="/productPage" disabled={cartIsOpen=== true? true : false}>
@@ -225,7 +220,7 @@ class Product extends Component {
                         {name}
                     </Name>
                     <Price>
-                        {price}
+                        {GetCurrentPrice(prices, currentCurrencyValue)}
                     </Price>
                 </Info>
                     
