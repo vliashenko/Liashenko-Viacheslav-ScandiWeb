@@ -1,6 +1,22 @@
 #npm i<br>
 #npm start<br>
 <br>
+For today I have fixed 11 bugs, such as: <br>
+1) The "Category name" label is representing now the category name.<br>
+2) Currency Switcher items aren't hardcoded. It is fetched from the currency list from the API.<br>
+3) The category list isn't hardcoded. It is fetched from the API.<br>
+4) Cart Overlay now can be closed on click outside the component.<br>
+5) Page elements aren't accessible under the Cart Overlay backdrop.<br>
+6) The out-of-stock product now are visible on PDP.<br>
+7) All image thumbnails are rendered on PDP.
+8) Cart Overlay is closing when a customer is navigated to the Cart page.<br>
+9) Products are fetched for the current category only.<br>
+10) DangerouslySetInnerHTML is dangerous and is no longer appears in code.<br>
+11) The selected color swatch now have a space between the box and the green border.<br>
+<br>
+So for tomorrow I will try  to deal with errors occured on PDP, and it seems like I have found the way to do it.<br>
+Also I will figure out how to set backdrop properly, and will try to deal with all hardcode I got.<br>
+<br>
 Before you run the project be sure the DB is working and run on port localhost:4000.<br>
 <br>
 The project took me a five full work days, which is around 40hours in sum.<br>
