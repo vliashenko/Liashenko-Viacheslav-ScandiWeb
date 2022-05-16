@@ -7,7 +7,7 @@ For today I have fixed 11 bugs, such as: <br>
 3) The category list isn't hardcoded. It is fetched from the API.<br>
 4) Cart Overlay now can be closed on click outside the component.<br>
 5) Page elements aren't accessible under the Cart Overlay backdrop.<br>
-6) The out-of-stock product now are visible on PDP.<br>
+6) The out-of-stock products now are visible on PDP.<br>
 7) All image thumbnails are rendered on PDP.
 8) Cart Overlay is closing when a customer is navigated to the Cart page.<br>
 9) Products are fetched for the current category only.<br>
