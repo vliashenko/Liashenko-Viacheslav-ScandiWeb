@@ -70,12 +70,10 @@ even not in a full month, maybe in a 27 days))<br>
 <br>
 There are some of photos of it:<br>
 
-![PLP](https://user-images.githubusercontent.com/87814580/167911763-a3d564ce-065f-48d8-990f-85010fd9ee54.jpeg)
-
-![PDP](https://user-images.githubusercontent.com/87814580/167911775-725aca65-1b73-40a0-bacd-f775955d69db.jpeg)
-
-![CartPage](https://user-images.githubusercontent.com/87814580/167911785-70801a05-20f6-4072-9575-70adf610e572.jpeg)
+![PLP](https://user-images.githubusercontent.com/87814580/168812651-978f9dd8-065e-4334-a662-ecef62076a9e.jpeg)
+![PDP](https://user-images.githubusercontent.com/87814580/168812666-46913533-345f-4243-9550-d7278d0d2f61.jpeg)
+![CartPage](https://user-images.githubusercontent.com/87814580/168812685-13ab475d-e46a-42fb-834d-3c83cc0a0ca0.jpeg)
 
 
 <br>
-And yep, there is still a lil bug i didn't fix, so lets see, maybe I'll repair it soon)<br>
+
