@@ -5,7 +5,7 @@ Update 17.05
 For today I have fixed these bugs, such as: <br>
 1) All eslint errors and warnings are fixed.<br>
 2) When you reload the Tech page, you will stay on that page and category.<br>
-3) Improved render methods. All loops are moved, callbacks, and conditional statements into separate methods<br>
+3) Improved render methods. All loops are moved, callbacks, and conditional statements moved into separate methods<br>
 4) Cart Overlay backdrop is darker. The product title color on PLP is darker.<br>
 5) The selected color swatch have a space between the box and the green border.<br>
 6) When you reload the PDP, there is no more errors and crashes, so my main bug is fixed! <br>
