@@ -1,5 +1,6 @@
 #npm i<br>
 #npm start<br>
+_______________________________________________________________________________________________
 <br>
 Update 17.05
 For today I have fixed these bugs, such as: <br>
@@ -15,6 +16,7 @@ For tomorrow i will try work with hardcode in the attributes. Will try to do the
 <br>
 <br>
 <br>
+_______________________________________________________________________________________________
 Update 16.05
 For today I have fixed 10 bugs, such as: <br>
 1) The "Category name" label is representing now the category name.<br>
@@ -28,6 +30,7 @@ For today I have fixed 10 bugs, such as: <br>
 9) Products are fetched for the current category only.<br>
 10) DangerouslySetInnerHTML is dangerous and is no longer appears in code.<br>
 <br>
+_______________________________________________________________________________________________
 <br>
 Before you run the project be sure the DB is working and run on port localhost:4000.<br>
 <br>
