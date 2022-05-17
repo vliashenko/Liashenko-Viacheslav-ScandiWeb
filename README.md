@@ -17,6 +17,7 @@ For tomorrow i will try work with hardcode in the attributes. Will try to do the
 <br>
 <br>
 _______________________________________________________________________________________________
+<br>
 Update 16.05
 For today I have fixed 10 bugs, such as: <br>
 1) The "Category name" label is representing now the category name.<br>
