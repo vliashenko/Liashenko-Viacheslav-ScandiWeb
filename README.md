@@ -3,7 +3,7 @@
 _______________________________________________________________________________________________
 <br>
 Update 17.05
-For today I have fixed these bugs, such as: <br>
+For today I have fixed these bugs: <br>
 1) All eslint errors and warnings are fixed.<br>
 2) When you reload the Tech page, you will stay on that page and category.<br>
 3) Improved render methods. All loops are moved, callbacks, and conditional statements moved into separate methods<br>
