@@ -1,7 +1,20 @@
 #npm i<br>
 #npm start<br>
 <br>
-For today I have fixed 11 bugs, such as: <br>
+Update 17.05
+For today I have fixed these bugs, such as: <br>
+1) All eslint errors and warnings are fixed.<br>
+2) When you reload the Tech page, you will stay on that page and category.<br>
+3) Improved render methods. All loops are moved, callbacks, and conditional statements into separate methods<br>
+4) Cart Overlay backdrop is darker. The product title color on PLP is darker.<br>
+5) The selected color swatch have a space between the box and the green border.<br>
+6) When you reload the PDP, there is no more errors and crashes, so my main bug is fixed! <br>
+<br>
+<br>
+For tomorrow i will try work with hardcode in the attributes. Will try to do the code more dynamic.
+<br>
+Update 16.05
+For today I have fixed 10 bugs, such as: <br>
 1) The "Category name" label is representing now the category name.<br>
 2) Currency Switcher items aren't hardcoded. It is fetched from the currency list from the API.<br>
 3) The category list isn't hardcoded. It is fetched from the API.<br>
@@ -12,10 +25,7 @@ For today I have fixed 11 bugs, such as: <br>
 8) Cart Overlay is closing when a customer is navigated to the Cart page.<br>
 9) Products are fetched for the current category only.<br>
 10) DangerouslySetInnerHTML is dangerous and is no longer appears in code.<br>
-11) The selected color swatch now have a space between the box and the green border.<br>
 <br>
-So for tomorrow I will try  to deal with errors occured on PDP, and it seems like I have found the way to do it.<br>
-Also I will figure out how to set backdrop properly, and will try to deal with all hardcode I got.<br>
 <br>
 Before you run the project be sure the DB is working and run on port localhost:4000.<br>
 <br>
