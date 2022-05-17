@@ -13,6 +13,8 @@ For today I have fixed these bugs, such as: <br>
 <br>
 For tomorrow i will try work with hardcode in the attributes. Will try to do the code more dynamic.
 <br>
+<br>
+<br>
 Update 16.05
 For today I have fixed 10 bugs, such as: <br>
 1) The "Category name" label is representing now the category name.<br>
