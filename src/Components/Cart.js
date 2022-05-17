@@ -3,11 +3,21 @@ import CartItem from './CartItem';
 import { GetCurrencySign } from '../Functions/GetCurrencySign';
 import styled from "styled-components";
 
-const Container = styled.div`
+let Container = styled.div`
+    padding-top: 32px;
     padding-bottom: 274px;
+
+    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+`;
+
+const Wrapper = styled.div`
+    max-width: 1280px;
+    margin: 0 auto;
 `;
 
 const Title = styled.h3`
+    margin-top: 0;
     font-size: 32px;
     font-weight: 700;
     line-height: 40px;
@@ -99,17 +109,23 @@ class Cart extends Component {
         }))
     }
 
+    componentDidMount() {
+        this.props.closeCart()
+    }
+
     render() {
         const { productsInCart, currentCurrencyValue,handleChangeCart } = this.props;
    
         return (
-            <Container>
+            <Container cartIsOpen={this.props.cartIsOpen}>
+                <Wrapper>
                 <Title>
                     CART
                 </Title>
                 <CartContainer >
                     {productsInCart.length > 0?
-                    <CartItem 
+                    <CartItem
+                        totalForCart={this.props.totalForCart}
                         productsInCart={productsInCart}
                         currentCurrencyValue={currentCurrencyValue}
                         handleChangeCart={handleChangeCart}
@@ -140,6 +156,7 @@ class Cart extends Component {
                 <Button>
                     ORDER
                 </Button>
+                </Wrapper>
             </Container>
         );
     }

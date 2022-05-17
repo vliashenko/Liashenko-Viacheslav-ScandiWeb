@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import history from "history/browser";
 import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
 
-const OutOfStock = styled.div`
+let OutOfStock = styled.div`
     position: absolute;
     top: 50%;
     left: 30%;
@@ -15,19 +16,26 @@ const OutOfStock = styled.div`
     opacity: ${props => props.inStock === false && 1};
 `;
 
-const Container = styled.div`
-    margin-top: 82px;
+let Container = styled.div`
+    padding-top: 82px;
     padding-bottom: 178px;
-    display: flex;
     
-    opacity: ${props=> props.cartIsOpen && "0.5"}
+    
+    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+`;
+
+const Wrapper = styled.div`
+    display: flex;
+    max-width: 1280px;
+    margin: 0 auto;
 `;
 
 const Left = styled.div`
     display: flex;
     flex-direction: column;
 `;
-const SmallImageContainer = styled.div`
+let SmallImageContainer = styled.div`
     width: 80px;
     margin-bottom: 32.39px;
     display: flex;
@@ -46,7 +54,7 @@ const SmallImage = styled.img`
 const Center = styled.div`
     margin-left: 62.29px;
 `;
-const BigImageContainer = styled.div`
+let BigImageContainer = styled.div`
     width: 610px;
 
     @media (max-width:1138px){
@@ -98,7 +106,7 @@ const SizeContainer = styled.div`
     display: flex;
 `;
 
-const SizeItem = styled.div`
+let SizeItem = styled.div`
     margin-right: 12px;
     display: flex;
     align-items: center;
@@ -125,22 +133,22 @@ const ColorContainer = styled.div`
     align-items: center;
 `;
 
-const ColorItemContainer = styled.div`
+let ColorItemContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 33px;
-    height: 33px;
+    width: 32.8px;
+    height: 32.8px;
     margin-right: 10px;
     border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
 `;
 
-const ColorItem = styled.div`
+let ColorItem = styled.div`
     width: 32px;
     height: 32px;
     cursor: pointer;
     background: ${props => props.bg};
-    height: ${props => props.chosen === "true" && '30px'};
+    height: ${props => props.chosen === "true" && '33px'};
     pointer-events: ${props=> props.disabled === true && "none"};
 `;
 const Price = styled.div`
@@ -153,7 +161,7 @@ const PriceItem = styled.div`
     line-height: 18px;
     letter-spacing: 0em;
 `;
-const Button = styled.button`
+let Button = styled.button`
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -186,7 +194,7 @@ class ProductPage extends Component {
         super(props);
 
         this.state = {
-            currentImage: this.props.chosenProduct.gallery[0],
+            currentImage: history.location.state.gallery[0],
             chosenSize: undefined,
             chosenCapacity: undefined,
             chosenColor: undefined,
@@ -366,7 +374,7 @@ class ProductPage extends Component {
     addingHandler = (item) => {
         
         this.setState(()=> ({
-            ID: this.getRandom(this.props.chosenProduct.id)
+            ID: this.getRandom(history.location.state.id)
         }));
         
         this.props.getProductToCartPLP(item);
@@ -376,46 +384,61 @@ class ProductPage extends Component {
         },0)
     }
 
+    showSmallImages = (gallery) => {
+        return gallery.map((image, i)=> {
+            return(
+            <SmallImageContainer
+            disabled={ this.props.cartIsOpen===true? true : false }
+            chosen={this.state.currentImage === image && "true"}
+            key={i}>
+                <SmallImage 
+                onClick={() =>this.getRightImage(image)} src={image}/>
+            </SmallImageContainer> 
+            )
+        })
+    }
+
+    pushItemToApp = () => {
+        let  quantity = 1;
+        
+        return {
+            brand: history.location.state.brand, 
+            gallery: history.location.state.gallery, 
+            inStock: history.location.state.inStock, 
+            name: history.location.state.name, 
+            prices: history.location.state.prices,
+            attributes: history.location.state.attributes,
+            id:this.state.ID,
+            quantity: quantity, 
+            chosenSize: this.state.chosenSize,
+            chosenCapacity: this.state.chosenCapacity,
+            chosenColor: this.state.chosenColor,
+            chosenUSB: this.state.chosenUSB,
+            chosenKeyboard: this.state.chosenKeyboard
+        }
+    }
+
     componentDidMount() {
-        this.setDefaultState(this.props.chosenProduct.attributes, "Size", "Size");
-        this.setDefaultState(this.props.chosenProduct.attributes, "Capacity","Capacity");
-        this.setDefaultState(this.props.chosenProduct.attributes, "With USB 3 ports", "USB");
-        this.setDefaultState(this.props.chosenProduct.attributes, "Touch ID in keyboard", "Keyboard");
-        this.setDefaultState(this.props.chosenProduct.attributes, "Color", "Color");
+        this.setDefaultState(history.location.state.attributes, "Size", "Size");
+        this.setDefaultState(history.location.state.attributes, "Capacity","Capacity");
+        this.setDefaultState(history.location.state.attributes, "With USB 3 ports", "USB");
+        this.setDefaultState(history.location.state.attributes, "Touch ID in keyboard", "Keyboard");
+        this.setDefaultState(history.location.state.attributes, "Color", "Color");
         this.setState(()=> ({
-            ID: this.getRandom(this.props.chosenProduct.id)
+            ID: this.getRandom(history.location.state.id)
         }));
     }
 
     render() {
 
-        const { chosenProduct,cartIsOpen, currentCurrencyValue } = this.props;
-        const { brand, name, inStock, gallery, attributes,prices, description } = chosenProduct;
-
-        const quantity = 1;
-        const chosenSize = this.state.chosenSize;
-        const chosenColor = this.state.chosenColor;
-        const chosenCapacity = this.state.chosenCapacity;
-        const chosenUSB = this.state.chosenUSB;
-        const chosenKeyboard = this.state.chosenKeyboard;
-        let ID = this.state.ID;
-
-        const item = {brand, gallery, inStock, name, prices,attributes, id:ID,quantity, chosenSize,chosenCapacity,chosenColor,chosenUSB,chosenKeyboard}
+        const { currentCurrencyValue, cartIsOpen } = this.props;
+        const { brand, gallery, inStock, name, prices, description, attributes } = history.location.state;
         
-        return (
+        return ( 
             <Container cartIsOpen={cartIsOpen}>
+                <Wrapper>
                 <Left>
-                {gallery.map((image, i)=> {
-                        return(
-                        <SmallImageContainer
-                        disabled={ cartIsOpen===true? true : false }
-                        chosen={this.state.currentImage === image && "true"}
-                        key={i}>
-                            <SmallImage 
-                            onClick={() =>this.getRightImage(image)} src={image}/>
-                        </SmallImageContainer> 
-                        )
-                    })}
+                {this.showSmallImages(gallery)}
                 </Left>
                 <Center>
                     <BigImageContainer inStock={inStock}>
@@ -448,7 +471,7 @@ class ProductPage extends Component {
                         <PriceItem>{GetCurrentPrice(prices,currentCurrencyValue)}</PriceItem>
                     </Price>
                     <Button 
-                        onClick={() =>this.addingHandler(item)}
+                        onClick={() =>this.addingHandler(this.pushItemToApp())}
                         inStock={inStock} 
                         disabled={inStock === false? true : false || cartIsOpen === true? true:false}>
                             ADD TO CART
@@ -457,6 +480,7 @@ class ProductPage extends Component {
                         {description.replace(/<\/?[^>]+(>|$)/g, "")}
                     </Desc>
                 </Right>
+                </Wrapper>
             </Container>
         );
     }

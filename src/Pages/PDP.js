@@ -11,7 +11,6 @@ class PDP extends Component {
                 <ProductPage
                     currentCurrencyValue={this.props.currentCurrencyValue}
                     cartIsOpen={this.props.cartIsOpen}
-                    chosenProduct={this.props.chosenProduct}
                     getProductToCartPLP={this.props.getProductToCartPLP}
                     totalForCart={this.props.totalForCart}/>
             </Container>

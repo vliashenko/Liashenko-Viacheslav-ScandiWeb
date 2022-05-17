@@ -47,7 +47,7 @@ const SmallTitle = styled.p`
 const SizeContainer = styled.div`
     display: flex;
 `;
-const SizeItem = styled.div`
+let SizeItem = styled.div`
     margin-right: 8px;
     display: flex;
     align-items: center;
@@ -68,15 +68,25 @@ const Color = styled.div`
 `;
 const ColorContainer = styled.div`
     display: flex;
+    aign-items: center;
 `;
-const ColorItem = styled.div`
+
+let ColorItemContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 37.2px;
+    height: 36.9px;
+    margin-right: 10px;
+    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
+`;
+
+let ColorItem = styled.div`
     width: 36px;
     height: 36px;
-    margin-right: 10px;
 
     background: ${props => props.bg};
-    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
-    height: ${props => props.chosen === "true" && '34px'};
+    height: ${props => props.chosen === "true" && '36px'};
 `;
 
 const Right = styled.div`
@@ -203,11 +213,12 @@ class CartItem extends Component {
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
+                            <ColorItemContainer key={i} chosen={chosenColor === el.value? "true" :"false"}>
                             <ColorItem 
-                            key={i}
                             chosen={chosenColor === el.value? "true" :"false"} 
                             bg={el.value}>
                             </ColorItem>
+                            </ColorItemContainer>
                         ) 
                     })}    
                     </ColorContainer>
@@ -239,6 +250,7 @@ class CartItem extends Component {
     handlerMendlerPlus = (product) => {
         this.props.handleChangeCart(product, 1,product.id);
         this.countTotal();
+        this.props.totalForCart();
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
         },100)
@@ -247,24 +259,14 @@ class CartItem extends Component {
     handlerMendlerMinus = (product) => {
         this.props.handleChangeCart(product, -1,product.id);
         this.countTotal();
+        this.props.totalForCart();
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
         },100)
     }
 
-    componentDidMount() {
-        this.countTotal();
-        setTimeout(()=> {
-            this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
-        },100)
-    }
-
-    render() {
-
-
-        const { productsInCart, currentCurrencyValue } = this.props;
-
-        const itemInCart = productsInCart.map((product,i) => {
+    itemInCart = () => {
+        return this.props.productsInCart.map((product,i) => {
 
             return (
                 <div key={i}>
@@ -278,7 +280,7 @@ class CartItem extends Component {
                         {product.name}
                     </SubTitle>
                     <Price>
-                        {GetCurrentPrice(product.prices, currentCurrencyValue)}
+                        {GetCurrentPrice(product.prices, this.props.currentCurrencyValue)}
                     </Price>
                     <Size>
                         {this.getAttributesSCUK(product.attributes, "Size", "Size", product.chosenSize)}
@@ -311,9 +313,20 @@ class CartItem extends Component {
             )
 
         })
+    }
 
+    componentDidMount() {
+        this.countTotal();
+        setTimeout(()=> {
+            this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
+        },100)
+    }
+
+    render() {
         return (
-            <>{itemInCart}</>
+            <>
+                {this.itemInCart()}
+            </>
         );
     }
 }

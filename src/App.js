@@ -12,11 +12,18 @@ class App extends Component {
     this.state = {
       cartIsOpen: false,
       currentCurrencyValue: "USD",
-      category: 'all',
-      chosenProduct: [],
+      localCategory: JSON.parse(localStorage.getItem('category')) || 'all',
       productsInCart: [],
       totalAmount: 0
     }
+  }
+
+  addLocalCategory = (category) => {
+    this.setState({
+      localCategory: category
+    },() => {
+      localStorage.setItem('category', JSON.stringify(this.state.localCategory))
+    });
   }
 
   getProductToCartPLP = (product) => {
@@ -56,19 +63,6 @@ class App extends Component {
           productsInCart: [...arr]
       }))}
   }
-  
-
-  getChosenProduct = (prod,id) => {
-    this.setState(() => ({
-      chosenProduct: prod
-    }))
-  }
-
-  getCategory = (category) => {
-    this.setState(() => ({
-        category: category
-    }))
-  }
 
   checkCartState = (state) => {
       this.setState(() => {
@@ -99,42 +93,48 @@ class App extends Component {
     }))
   }
 
+  closeCart = () => {
+    this.setState(() => ({
+        cartIsOpen: false
+    }))
+  }
 
   render() {
     return (
       <BrowserRouter>
         <Header 
           checkCartState={this.checkCartState}
-          getCategory={this.getCategory}
           getCurrentCurrencyValue={this.getCurrentCurrencyValue}
           productsInCart={this.state.productsInCart}
           currentCurrencyValue={this.state.currentCurrencyValue}
           handleChangeCart={this.handleChangeCart}
           totalAmount={this.state.totalAmount}
           totalForCart={this.totalForCart}
+          addLocalCategory={this.addLocalCategory}
+          localCategory={this.state.localCategory}
           />
         <Routes>
           <Route path="/" exact element={<PLP 
             cartIsOpen={this.state.cartIsOpen}
             currentCurrencyValue={this.state.currentCurrencyValue}
-            category={this.state.category}
-            getChosenProduct={this.getChosenProduct}
             getProductToCartPLP={this.getProductToCartPLP}
-            chosenProduct={this.state.chosenProduct}
             totalForCart={this.totalForCart}
+            localCategory={this.state.localCategory}
           />}/>
           <Route path="/productPage" exact 
             element={
               <PDP 
                 currentCurrencyValue={this.state.currentCurrencyValue}
                 cartIsOpen={this.state.cartIsOpen}
-                chosenProduct={this.state.chosenProduct}
                 getProductToCartPLP={this.getProductToCartPLP}
                 totalForCart={this.totalForCart}
                 />
               }/>
           <Route path="/cartPage" exact element={
             <CartPage 
+              totalForCart={this.totalForCart}
+              closeCart={this.closeCart}
+              cartIsOpen={this.state.cartIsOpen}
               productsInCart={this.state.productsInCart}
               currentCurrencyValue={this.state.currentCurrencyValue}
               handleChangeCart={this.handleChangeCart}
@@ -142,7 +142,6 @@ class App extends Component {
             }/>
           <Route path="*" element={<Navigate to="/" replace />}/>
         </Routes>
-        
       </BrowserRouter>
     );
   }

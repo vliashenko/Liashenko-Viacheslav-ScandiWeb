@@ -12,6 +12,8 @@ const Container = styled.div`
    display: flex;
    align-items: center;
    justify-content: space-between;
+   max-width: 1280px;
+  margin: 0 auto;
 `;
 const Left = styled.div`
     display: flex;
@@ -19,7 +21,7 @@ const Left = styled.div`
 let Category = styled.div`
     font-size: 16px;
     font-weight: 600;
-    line-height: 48px;
+    line-height: 78px;
     letter-spacing: 0px;
     text-align: center;
     margin: 0px 16px;
@@ -244,30 +246,11 @@ class Header extends Component {
             currencies: [],
             currencyIsOpen: false,
             cartIsOpen: false,
-            activeCategory: "all",
+            activeCategory: this.props.localCategory,
             activeCurrencyValue: "USD",
             total: 0,
             totalAmount: 0
         }
-    }
-
-    showCategories = () => {
-        return this.state.categories.map((item,i)=> {
-            let name = item.name;
-            return (
-                <Link onClick={this.state.cartIsOpen === true? (e) => e.preventDefault() : null}
-                    key={i}
-                    to="/" 
-                    style={{textDecoration: "none"}}>
-                    <Category 
-                        disabled={this.state.cartIsOpen === true? true : false} 
-                        category={this.state.activeCategory === item.name ? 'true' : 'false'} 
-                        onClick={() => this.onClickCategory(item.name)}>
-                        {name.charAt(0).toUpperCase() + name.slice(1)}
-                    </Category>
-                </Link>
-            )
-        })
     }
 
     getActiveCurrencyValue = (value) => {
@@ -315,8 +298,27 @@ class Header extends Component {
     }
 
     onClickCategory = (category) => {
+        this.props.addLocalCategory(category)
         this.getActiveCategory(category)
-        this.props.getCategory(category)
+    }
+
+    showCategories = () => {
+        return this.state.categories.map((item,i)=> {
+            let name = item.name;
+            return (
+                <Link onClick={this.state.cartIsOpen === true? (e) => e.preventDefault() : null}
+                    key={i}
+                    to="/" 
+                    style={{textDecoration: "none"}}>
+                    <Category 
+                        disabled={this.state.cartIsOpen === true? true : false} 
+                        category={this.state.activeCategory === item.name ? 'true' : 'false'} 
+                        onClick={() => this.onClickCategory(item.name)}>
+                        {name.charAt(0).toUpperCase() + name.slice(1)}
+                    </Category>
+                </Link>
+            )
+        })
     }
 
     closeCart = () => {
@@ -446,6 +448,7 @@ class Header extends Component {
                                  
                             </Title>
                             <MiniCartItem 
+                                countTotal={this.countTotal}
                                 currentCurrencyValue={currentCurrencyValue}
                                 productsInCart={productsInCart}
                                 handleChangeCart={this.props.handleChangeCart}

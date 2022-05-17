@@ -3,12 +3,19 @@ import Product from './Product';
 import FetchCategory from '../Functions/FetchCategory';
 import styled from 'styled-components';
 
-const Container = styled.div`
-    opacity: ${props => props.cartIsOpen && '0.3'}
+let Container = styled.div`
+    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
+`;
+
+const Wrapper = styled.div`
+    max-width: 1280px;
+    margin: 0 auto;
 `;
 
 const Title = styled.h3`
-    margin: 44px 0px 84px 0px;
+    margin: 0px 0px 84px 0px;
+    padding-top: 44px;
     font-size: 42px;
     font-weight: 400;
     line-height: 67px;
@@ -39,7 +46,6 @@ class Products extends Component {
                         <Product 
                             key={i}
                             cartIsOpen={this.props.cartIsOpen}
-                            getChosenProduct={this.props.getChosenProduct} 
                             currentCurrencyValue={this.props.currentCurrencyValue}
                             id={id}
                             getProductToCartPLP={this.props.getProductToCartPLP}
@@ -54,12 +60,12 @@ class Products extends Component {
     }
 
     componentDidMount() {
-        if(this.props.category !== null) {
+        if(this.props.localCategory !== null) {
             FetchCategory().then(res => {
         
                 let categories = res.data.categories;
                     
-                let filtered = categories.filter(el => el.name === this.props.category);
+                let filtered = categories.filter(el => el.name === this.props.localCategory);
 
                 let result = filtered[0].products
                 
@@ -75,13 +81,13 @@ class Products extends Component {
 
     componentDidUpdate() {
 
-        if(this.props.category !== null) {
+        if(this.props.localCategory !== null) {
 
             FetchCategory().then(res => {
         
             let categories = res.data.categories;
                 
-            let filtered = categories.filter(el => el.name === this.props.category);
+            let filtered = categories.filter(el => el.name === this.props.localCategory);
             
             let result = filtered[0].products
             
@@ -100,12 +106,14 @@ class Products extends Component {
         
         return (
             <Container cartIsOpen={this.props.cartIsOpen}>
+                <Wrapper>
                 <Title>
-                   {this.props.category.charAt(0).toUpperCase() + this.props.category.slice(1)}
+                   {this.props.localCategory.charAt(0).toUpperCase() + this.props.localCategory.slice(1)}
                 </Title>
                 <ProductsContainer>
                      {this.showCategory()}
                 </ProductsContainer>
+                </Wrapper>
             </Container>
         );
     }

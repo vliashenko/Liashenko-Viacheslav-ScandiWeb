@@ -10,14 +10,14 @@ const Container = styled.div`
     overflow: hidden;
 `;
 
-const Wrapper = styled.div`
+let Wrapper = styled.div`
     height: 100%;
     display: flex;
     transition: all 1.5s ease;
     transform: translateX(${props => props.slideIndex * - 200}px);
 `;
 
-const Arrow = styled.div`
+let Arrow = styled.div`
     position: absolute;
     top: 80%;
     bottom: 0;

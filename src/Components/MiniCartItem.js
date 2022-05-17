@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
 
 const Container = styled.div`
@@ -44,7 +45,7 @@ const SmallTitle = styled.p`
 const SizeContainer = styled.div`
     display: flex;
 `;
-const SizeItem = styled.div`
+let SizeItem = styled.div`
     margin-top: 8px;
     margin-right: 8px;
     width: 24px;
@@ -66,16 +67,25 @@ const Color = styled.div`
 `;
 const ColorContainer = styled.div`
     display: flex;
+    align-items: center;
 `;
-const ColorItem = styled.div`
+
+let ColorItemContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 17px;
+    height: 17px;
+    margin-right: 10px;
+    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
+`;
+
+let ColorItem = styled.div`
     width: 16px;
     height: 16px;
-    margin-top: 8px;
-    margin-right: 10px;
-
+    
     background: ${props => props.bg};
-    border: ${props => props.chosen === "true" && '1.6px solid #5ECE7B'};
-    height: ${props => props.chosen === "true" && '14px'};
+    height: ${props => props.chosen === "true" && '16px'};
 `;
 const Right = styled.div`
     display: flex;
@@ -190,7 +200,9 @@ class MiniCartItem extends Component {
                     })}    
                     </SizeContainer>
                     </div>
-                )}   
+                )} else {
+                    return null
+                }   
             })
         return atrObjects
     }
@@ -204,20 +216,24 @@ class MiniCartItem extends Component {
                     <SmallTitle>
                         COLOR:
                     </SmallTitle>
+                    
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
+                            <ColorItemContainer  chosen={chosenColor === el.value? "true" :"false"}>
                             <ColorItem 
-                            key={i}
                             chosen={chosenColor === el.value? "true" :"false"} 
                             bg={el.value}>
                             </ColorItem>
+                            </ColorItemContainer>
                         ) 
                     })}    
                     </ColorContainer>
                     </div>
                 )   
                 
+            } else {
+                return null
             }
         })
         return atrObjects
@@ -225,7 +241,7 @@ class MiniCartItem extends Component {
 
     onClickHandlerPlus = (product) => {
         this.props.handleChangeCart(product, 1,product.id)
-
+        this.props.countTotal();
         setTimeout(()=> {
             this.props.totalForCart()
         },0)
@@ -233,24 +249,14 @@ class MiniCartItem extends Component {
 
     onClickHandlerMinus = (product) => {
         this.props.handleChangeCart(product, -1,product.id)
-
+        this.props.countTotal();
         setTimeout(()=> {
             this.props.totalForCart()
         },0)
     }
 
-    render() {
-        const { productsInCart, currentCurrencyValue, handleChangeCart } = this.props;
-        
-
-        const itemInCart = productsInCart.map((product,i) => {
-            
-            const price = product.prices.map(item => {
-                if(item.currency.label === currentCurrencyValue) {
-                    
-                    return `${item.currency.symbol} ${item.amount}`
-                }
-            })
+    itemInCart = () => {
+        return this.props.productsInCart.map((product,i) => {
             
             return (
                 
@@ -263,7 +269,7 @@ class MiniCartItem extends Component {
                         {product.name}
                     </SubTitle>
                     <Price>
-                        {price}
+                        {GetCurrentPrice(product.prices, this.props.currentCurrencyValue)}
                     </Price>
                     <Size>
                         {this.getAttributesSCUK(product.attributes, "Size", "Size", product.chosenSize)}
@@ -292,8 +298,13 @@ class MiniCartItem extends Component {
             </Container>
             )
         })
+    }
+
+    render() {
         return (
-            <>{itemInCart}</>
+            <>
+                {this.itemInCart()}
+            </>
         );
     }
 }

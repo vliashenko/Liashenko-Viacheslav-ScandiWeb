@@ -12,10 +12,9 @@ class PLP extends Component {
                 <Products 
                 cartIsOpen={this.props.cartIsOpen}
                 currentCurrencyValue={this.props.currentCurrencyValue}
-                category={this.props.category}
-                getChosenProduct={this.props.getChosenProduct}
                 getProductToCartPLP={this.props.getProductToCartPLP}
                 totalForCart={this.props.totalForCart}
+                localCategory={this.props.localCategory}
                 />
             </Container>
         );
