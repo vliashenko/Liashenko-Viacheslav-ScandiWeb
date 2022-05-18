@@ -195,6 +195,7 @@ class ProductPage extends Component {
 
         this.state = {
             currentImage: history.location.state.gallery[0],
+            // defaultAttributes: [],
             chosenSize: undefined,
             chosenCapacity: undefined,
             chosenColor: undefined,
@@ -310,7 +311,9 @@ class ProductPage extends Component {
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
-                            <ColorItemContainer key={i} chosen={this.state.chosenColor === el.value? "true" :"false"} >
+                            <ColorItemContainer 
+                                key={i} 
+                                chosen={this.state.chosenColor === el.value? "true" :"false"} >
                                 <ColorItem 
                                     disabled={ this.props.cartIsOpen===true? true : false }
                                     onClick={()=>this.getChosenColor(el.value)} 
@@ -329,6 +332,49 @@ class ProductPage extends Component {
         })
         return atrObjects
     }
+
+    // I was sending default attributes to an array in state, but after that i can't figure out how to operate with 
+    // data later in these functions. Probably I have to rewrite all these mechanisms so I could work with data dynamicly,
+    // but it will definitely take a lot of time. I wish I get more practice to deal with it. It is my first e-commerce React App and it
+    // seems like I do need more practice and mentorship to not to make such silly code...sorry, I tried my best...
+
+    // setDefaultStates = (atr, name, par) => {
+
+    //     const getStatesHandler = (par,el) => {
+    //         return atr.map(atrb => {
+    //              if(name === atrb.name ) {
+    //                 let newObj = {name, el}
+    //             this.setState(({defaultAttributes}) =>({
+    //                 defaultAttributes: [...defaultAttributes, newObj]
+    //             }))
+
+    //             let key = "name";
+                
+    //             return setTimeout(() => {
+
+    //                 let newArr = [...new Map(this.state.defaultAttributes.map(item =>
+    //                     [item[key], item])).values()];
+    //                     this.setState(() =>({
+    //                         defaultAttributes: newArr
+    //                     }))
+    //             },0)
+    //         } else {
+    //             return null
+    //         }
+    //         })
+    //     }
+
+    //     atr.map(item => {
+    //         if(item.name === name) {
+    //             const { items } = item;
+    //             return getStatesHandler(par,items[0])
+    //         } else {
+    //             return null
+    //         }
+    //     })
+    // }
+
+
 
     setDefaultState = (attributes, name, par) => {
 
@@ -366,6 +412,7 @@ class ProductPage extends Component {
         })
     }
 
+
     getRandom = (id) => {
         let number = Math.floor(Math.random() * (100000 - 1 + 1)) + 1
         return id + number
@@ -397,6 +444,8 @@ class ProductPage extends Component {
             )
         })
     }
+
+
 
     pushItemToApp = () => {
         let  quantity = 1;

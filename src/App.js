@@ -98,7 +98,7 @@ class App extends Component {
         cartIsOpen: false
     }))
   }
-
+  
   render() {
     return (
       <BrowserRouter>

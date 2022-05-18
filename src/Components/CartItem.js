@@ -152,7 +152,8 @@ class CartItem extends Component {
         this.state = {
             total: 0,
             totalAmount: 0,
-            totalTax: 0
+            totalTax: 0,
+            currentCurrencyValue: ""
         }
     }
 
@@ -244,6 +245,10 @@ class CartItem extends Component {
         this.setState(()=>({
             totalTax: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalTax
         }));
+
+        this.setState(() => ({
+            currentCurrencyValue: this.props.currentCurrencyValue
+        }))
     
     }
     
@@ -320,6 +325,16 @@ class CartItem extends Component {
         setTimeout(()=> {
             this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
         },100)
+    }
+    
+    componentDidUpdate = () => {
+        if( this.state.currentCurrencyValue !== this.props.currentCurrencyValue) {
+            this.countTotal();
+            this.props.totalForCart();
+            setTimeout(()=> {
+                this.props.getTotalAndAmountAndTax(this.state.total, this.state.totalAmount,this.state.totalTax)
+            },0)
+        }
     }
 
     render() {

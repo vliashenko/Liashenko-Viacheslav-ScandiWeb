@@ -249,7 +249,8 @@ class Header extends Component {
             activeCategory: this.props.localCategory,
             activeCurrencyValue: "USD",
             total: 0,
-            totalAmount: 0
+            totalAmount: 0,
+            totalTax: 0
         }
     }
 
@@ -262,6 +263,9 @@ class Header extends Component {
     onClickCurrency = (value) => {
         this.getActiveCurrencyValue(value)
         this.props.getCurrentCurrencyValue(value)
+        setTimeout(() => {
+            this.countTotal();
+        },0)
     }
 
     closeCurrency = () => {
@@ -357,6 +361,10 @@ class Header extends Component {
         this.setState(()=>({
             total: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalPrice
         }))
+
+        this.setState(()=>({
+            totalTax: CountTotal(this.props.productsInCart, this.props.currentCurrencyValue).totalTax
+        }));
     
     }
 

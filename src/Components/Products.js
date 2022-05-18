@@ -78,7 +78,7 @@ class Products extends Component {
                  })
         }
     }
-
+    
     componentDidUpdate() {
 
         if(this.props.localCategory !== null) {

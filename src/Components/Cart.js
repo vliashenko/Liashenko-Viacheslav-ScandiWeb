@@ -108,7 +108,7 @@ class Cart extends Component {
             totalTax: tax
         }))
     }
-
+    
     componentDidMount() {
         this.props.closeCart()
     }
