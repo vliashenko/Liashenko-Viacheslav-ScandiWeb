@@ -14,7 +14,10 @@ but still it wasn't enough, probably wasn't enough experience as O still learn R
 And I didn't ask anyone for help, so I did really felt lack of help and mentorship...I wish I have a friend programmer who can help,<br>
 but I don't, that is why it was the biggest programming chalange for me. I don't know if it will be enough for you, <br>
 but nevertheless you can be sure that I have put my soul into this project and have done my best and will do the same if I get the job!<br>
-Anyway thank you for this chance!
+Anyway thank you for this chance!<br>
+<br>
+<br>
+<br>
 _______________________________________________________________________________________________
 <br>
 Update 17.05
