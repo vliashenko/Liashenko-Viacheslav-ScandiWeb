@@ -2,6 +2,21 @@
 #npm start<br>
 _______________________________________________________________________________________________
 <br>
+Update 18.05
+For today I have fixed these bugs: <br>
+1) On CartPage after you change the currency the price and tax fields are changing.<br>
+2) On CartPage after you increase the amount of goods, the number above the cart icon is changing to a real amount.<br>
+<br>
+<br>
+Well. i tried my best, probably for now it is the biggest proect that I have done. I gave all myself to deal with this project,<br>
+but there is the riddle I didn't solve...it is attributes that must appears dynamicaly, but they aren't. I tried my best to solve it<br>
+but still it wasn't enough, probably wasn't enough experience as O still learn React, and I have spent for learning only a month with a one week.<br>
+And I didn't ask anyone for help, so I did really felt lack of help and mentorship...I wish I have a friend programmer who can help,<br>
+but I don't, that is why it was the biggest programming chalange for me. I don't know if it will be enough for you, <br>
+but nevertheless you can be sure that I have put my soul into this project and have done my best and will do the same if I get the job!<br>
+Anyway thank you for this chance!
+_______________________________________________________________________________________________
+<br>
 Update 17.05
 For today I have fixed these bugs: <br>
 1) All eslint errors and warnings are fixed.<br>
