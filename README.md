@@ -14,9 +14,6 @@ Update 18.05
 For today I have fixed these bugs: <br>
 1) On CartPage after you change the currency the price and tax fields are changing.<br>
 2) On CartPage after you increase the amount of goods, the number above the cart icon is changing to a real amount.<br>
-<br>
-<br>
-<br>
 _______________________________________________________________________________________________
 <br>
 Update 17.05
@@ -30,8 +27,6 @@ For today I have fixed these bugs: <br>
 <br>
 <br>
 For tomorrow i will try work with hardcode in the attributes. Will try to do the code more dynamic.
-<br>
-<br>
 <br>
 _______________________________________________________________________________________________
 <br>
