@@ -2,14 +2,12 @@
 #npm start<br>
 _______________________________________________________________________________________________
 <br>
-Update 18.05
+Update 21.05
 For today I have fixed these bugs: <br>
 1) Now data is fetched for one category only.<br>
 2) The product description rendered as HTML using html-parser.<br>
-3) The style prop with constant values moved to CSS.
-<br>
-<br>
-<br>
+3) The style prop with constant values moved to CSS.<br>
+Still it isn't clear why pointer-event property doesn't work properly...<br>
 _______________________________________________________________________________________________
 <br>
 Update 18.05
