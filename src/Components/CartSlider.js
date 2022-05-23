@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+import "../Styles/CartSlider.css"
 
 
 const Container = styled.div`
@@ -17,12 +18,11 @@ let Wrapper = styled.div`
     transform: translateX(${props => props.slideIndex * - 200}px);
 `;
 
-let Arrow = styled.div`
+let ArrowLeft = styled.div`
     position: absolute;
     top: 80%;
     bottom: 0;
-    left: ${props => props.direction === "left" && "130px"};
-    right: ${props => props.direction === "right" && "10px"};
+    left: 130px;
     margin: auto;
     cursor: pointer;
     width: 24px;
@@ -33,6 +33,23 @@ let Arrow = styled.div`
     justify-content: center;
     z-index: 2;
 `;
+
+let ArrowRight = styled.div`
+    position: absolute;
+    top: 80%;
+    bottom: 0;
+    right: 10px;
+    margin: auto;
+    cursor: pointer;
+    width: 24px;
+    height: 24px;
+    background-color: rgba(0, 0, 0, 0.73);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+`;
+
 const ArrowImageLeft = styled.img`
     width: 5.63px;
     height: 11.24px;
@@ -115,12 +132,12 @@ class CartSlider extends Component {
     render() {
         return (
             <Container>
-                <Arrow 
+                <ArrowLeft 
                     style={this.props.gallery.length > 1 ? {display: 'flex'} : {display: "none"}}
                     direction="left" 
                     onClick = {() => this.handleClick("left")}>
                     <ArrowImageLeft src={require ('../Images/slider-left.png')}/>
-                </Arrow>
+                </ArrowLeft>
                 <Wrapper slideIndex={this.state.slideIndex}>
                 {this.props.gallery.map((item,i) => {
                     return (
@@ -132,12 +149,12 @@ class CartSlider extends Component {
                     )
                 })}
                 </Wrapper>
-                <Arrow 
+                <ArrowRight 
                     style={this.props.gallery.length > 1 ? {display: 'flex'} : {display: "none"}}
                     direction="right" 
                     onClick = {() => this.handleClick("right")}>
                     <ArrowImageRight src={require ('../Images/slider-right.png')}/>
-                </Arrow>
+                </ArrowRight>
             </Container>
         );
     }

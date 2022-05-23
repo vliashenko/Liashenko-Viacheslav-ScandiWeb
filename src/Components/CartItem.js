@@ -3,6 +3,7 @@ import CartSlider from '../Components/CartSlider';
 import CountTotal from '../Functions/CountTotal';
 import GetCurrentPrice from '../Functions/GetCurrentPrice.js'
 import styled from "styled-components";
+import "../Styles/CartItem.css";
 
 const Container = styled.div`
     margin: 24px 0px;
@@ -59,9 +60,6 @@ let SizeItem = styled.div`
     font-weight: 400;
     line-height: 18px;
     letter-spacing: 0.05em;
-
-    background: ${props => props.chosen === "true" && '#1D1F22'};
-    color: ${props => props.chosen === "true" && 'white'};
 `;
 const Color = styled.div`
     margin: 20px 0px 0px;
@@ -78,15 +76,12 @@ let ColorItemContainer = styled.div`
     width: 37.2px;
     height: 36.9px;
     margin-right: 10px;
-    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
 `;
 
 let ColorItem = styled.div`
     width: 36px;
     height: 36px;
-
     background: ${props => props.bg};
-    height: ${props => props.chosen === "true" && '36px'};
 `;
 
 const Right = styled.div`
@@ -140,6 +135,7 @@ const Amount = styled.span`
     letter-spacing: 0em;
 `;
 const SliderContainer = styled.div``;
+
 const HR = styled.hr`
     border: 1px solid #E5E5E5;
 `;
@@ -187,7 +183,7 @@ class CartItem extends Component {
                     return  (
                             <SizeItem 
                             key={i}
-                            chosen={getStatesHandler(par) === el? "true" : "false"}>
+                            className={getStatesHandler(par) === el && "chosen-size-item-CartItem"}>
                                 {el.value}
                             </SizeItem>
                         ) 
@@ -214,10 +210,12 @@ class CartItem extends Component {
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
-                            <ColorItemContainer key={i} chosen={chosenColor === el.value? "true" :"false"}>
+                            <ColorItemContainer 
+                                key={i} 
+                                className={chosenColor === el.value && "chosen-color-item-container-CartItem"}>
                             <ColorItem 
-                            chosen={chosenColor === el.value? "true" :"false"} 
-                            bg={el.value}>
+                                className={chosenColor === el.value && "chosen-color-item-CartItem"} 
+                                bg={el.value}>
                             </ColorItem>
                             </ColorItemContainer>
                         ) 

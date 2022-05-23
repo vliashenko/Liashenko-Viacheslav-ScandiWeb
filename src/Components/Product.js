@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import history from "history/browser";
 import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
+import "../Styles/Product.css"
 
 const CartButton = styled.button`
     z-index: 1;
@@ -22,18 +23,7 @@ const CartButton = styled.button`
     transition: all 300ms ease;
 `;
 
-let OutOfStock = styled.div`
-    position: absolute;
-    top: 45%;
-    left: 30%;
-    font-size: 24px;
-    font-weight: 400;
-    line-height: 38px;
-    letter-spacing: 0px;
-    color: black;
-    opacity: 0;
-    opacity: ${props => props.inStock === false && 1};
-`;
+let OutOfStock = styled.div``;
 
 let Container = styled.div`
     width: 386px;
@@ -46,8 +36,6 @@ let Container = styled.div`
     &:hover ${CartButton} {
         opacity: 1;
     }
-    
-    opacity: ${props => props.inStock === false &&  '0.5'};
 
     @media (max-width: 1200px) {
         margin: 20px 0px;
@@ -108,8 +96,6 @@ const Price = styled.div`
 
 let StyledLink = styled(Link)`
     text-decoration: none;
-
-    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 
 class Product extends Component {
@@ -209,7 +195,7 @@ class Product extends Component {
     }
 
     onClick = () => {
-        history.push('/productPage', {
+        history.push(`/productPage`, {
             name : this.props.name, 
             brand : this.props.brand, 
             prices : this.props.prices,
@@ -226,7 +212,7 @@ class Product extends Component {
         const { cartIsOpen,brand, gallery, inStock, name, prices, currentCurrencyValue } = this.props;
            
         return (
-            <Container inStock={inStock} >
+            <Container className={inStock === false && "container-opacity-PLP"} >
                 <StyledLink 
                     to="/productPage" 
                     disabled={cartIsOpen=== true? true : false}
@@ -234,7 +220,7 @@ class Product extends Component {
                     onClick={this.onClick}>
                 <ImageContainer >
                     <Image src={name==="Jacket"? gallery[5] : gallery}/>
-                    <OutOfStock inStock={inStock}>
+                    <OutOfStock className={inStock === false ? "active-out-of-stock-PLP" : "out-of-stock-PLP"}>
                         OUT OF STOCK
                     </OutOfStock>
                 </ImageContainer>

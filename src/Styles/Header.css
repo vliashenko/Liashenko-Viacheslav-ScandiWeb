@@ -1,0 +1,32 @@
+.non-active-category {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 78px;
+    letter-spacing: 0px;
+    text-align: center;
+    margin: 0px 16px;
+    cursor: pointer;
+    color: #1D1F22;
+    border-bottom: none;
+}
+
+.non-active-category:hover {
+    color: #5ECE7B;
+    border-bottom: 2px solid #5ECE7B;
+}
+
+.active-category {
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 78px;
+    letter-spacing: 0px;
+    text-align: center;
+    margin: 0px 16px;
+    cursor: pointer;
+    color: #5ECE7B;
+    border-bottom: 2px solid #5ECE7B;
+}
+
+.active-currency-item {
+    background:  #EEEEEE;
+}

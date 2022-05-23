@@ -1,28 +1,15 @@
 import React, { Component } from 'react';
 import history from "history/browser";
 import GetCurrentPrice from '../Functions/GetCurrentPrice';
+import parse from "html-react-parser";
 import styled from "styled-components";
+import '../Styles/ProductPage.css';
 
-let OutOfStock = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 30%;
-    font-size: 24px;
-    font-weight: 500;
-    line-height: 38px;
-    letter-spacing: 0px;
-    color: black;
-    opacity: 0;
-    opacity: ${props => props.inStock === false && 1};
-`;
+const OutOfStock = styled.div``;
 
-let Container = styled.div`
+const Container = styled.div`
     padding-top: 82px;
     padding-bottom: 178px;
-    
-    
-    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
-    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
 `;
 
 const Wrapper = styled.div`
@@ -35,15 +22,12 @@ const Left = styled.div`
     display: flex;
     flex-direction: column;
 `;
-let SmallImageContainer = styled.div`
+const SmallImageContainer = styled.div`
     width: 80px;
     margin-bottom: 32.39px;
     display: flex;
     justify-content: center;
     align-items: center;
-
-    pointer-events: ${props=> props.disabled === true && "none"};
-    border: ${props => props.chosen === "true" && "1px solid #d7d7d778"}
 `;
 const SmallImage = styled.img`
     width: 100%;
@@ -63,7 +47,6 @@ let BigImageContainer = styled.div`
     @media (max-width:916px){
         width: 300px
     }
-    opacity: ${props => props.inStock === false &&  '0.5'};
 `;
 const BigImage = styled.img`
     width: 100%;
@@ -106,7 +89,7 @@ const SizeContainer = styled.div`
     display: flex;
 `;
 
-let SizeItem = styled.div`
+const SizeItem = styled.div`
     margin-right: 12px;
     display: flex;
     align-items: center;
@@ -119,10 +102,6 @@ let SizeItem = styled.div`
     letter-spacing: 0.05em;
     border: 1px solid #1D1F22;
     cursor: pointer;
-
-    pointer-events: ${props=> props.disabled === true && "none"};
-    background: ${props => props.chosen === "true" && '#1D1F22'};
-    color: ${props => props.chosen === "true" && 'white'};
 `;
 const Color = styled.div`
     margin-top: 24px;
@@ -133,23 +112,20 @@ const ColorContainer = styled.div`
     align-items: center;
 `;
 
-let ColorItemContainer = styled.div`
+const ColorItemContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 32.8px;
     height: 32.8px;
     margin-right: 10px;
-    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
 `;
 
-let ColorItem = styled.div`
+const ColorItem = styled.div`
     width: 32px;
     height: 32px;
     cursor: pointer;
     background: ${props => props.bg};
-    height: ${props => props.chosen === "true" && '33px'};
-    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 const Price = styled.div`
     margin-top: 38px;
@@ -161,7 +137,7 @@ const PriceItem = styled.div`
     line-height: 18px;
     letter-spacing: 0em;
 `;
-let Button = styled.button`
+const Button = styled.button`
     margin-top: 20px;
     display: flex;
     align-items: center;
@@ -176,8 +152,6 @@ let Button = styled.button`
     line-height: 19px;
     letter-spacing: 0em;
     cursor: pointer;
-
-    opacity: ${props => props.inStock === false && "0.5"}
 `;
 const Desc = styled.div`
     width: 292px;
@@ -251,7 +225,6 @@ class ProductPage extends Component {
             } else if ( par === "Keyboard") {
                 return this.getChosenKeyboard(el)
             } else if ( par === "USB") {
-                console.log(par);
                 return this.getChosenUSB(el)
             } 
             
@@ -285,7 +258,7 @@ class ProductPage extends Component {
                             key={i}
                             disabled={ this.props.cartIsOpen===true? true : false }
                             onClick={() => getFunctionHandler(par,el)}
-                            chosen={getStatesHandler(par) === el? "true" : "false"}>
+                            className={getStatesHandler(par) === el && "chosen-attribute-item-PDP"}>
                                 {el.value}
                             </SizeItem>
                         ) 
@@ -313,9 +286,9 @@ class ProductPage extends Component {
                     return  (
                             <ColorItemContainer 
                                 key={i} 
-                                chosen={this.state.chosenColor === el.value? "true" :"false"} >
+                                className={this.state.chosenColor === el.value && "chosen-color-item-border-PDP"} >
                                 <ColorItem 
-                                    disabled={ this.props.cartIsOpen===true? true : false }
+                                    className={this.state.chosenColor === el.value && "chosen-color-item-PDP"}
                                     onClick={()=>this.getChosenColor(el.value)} 
                                     bg={el.value}>
                                 </ColorItem>
@@ -332,11 +305,6 @@ class ProductPage extends Component {
         })
         return atrObjects
     }
-
-    // I was sending default attributes to an array in state, but after that i can't figure out how to operate with 
-    // data later in these functions. Probably I have to rewrite all these mechanisms so I could work with data dynamicly,
-    // but it will definitely take a lot of time. I wish I get more practice to deal with it. It is my first e-commerce React App and it
-    // seems like I do need more practice and mentorship to not to make such silly code...sorry, I tried my best...
 
     // setDefaultStates = (atr, name, par) => {
 
@@ -435,8 +403,7 @@ class ProductPage extends Component {
         return gallery.map((image, i)=> {
             return(
             <SmallImageContainer
-            disabled={ this.props.cartIsOpen===true? true : false }
-            chosen={this.state.currentImage === image && "true"}
+            className={this.state.currentImage === image && "active-small-image-PDP"}
             key={i}>
                 <SmallImage 
                 onClick={() =>this.getRightImage(image)} src={image}/>
@@ -490,9 +457,9 @@ class ProductPage extends Component {
                 {this.showSmallImages(gallery)}
                 </Left>
                 <Center>
-                    <BigImageContainer inStock={inStock}>
+                    <BigImageContainer className={inStock === false && "image-out-of-stock-PDP"}>
                         <BigImage src={this.state.currentImage}/>
-                        <OutOfStock inStock={inStock}>
+                        <OutOfStock className={inStock === false ? "active-out-of-stock-PDP" : "out-of-stock-PDP"}>
                         OUT OF STOCK
                         </OutOfStock>
                     </BigImageContainer>
@@ -522,11 +489,12 @@ class ProductPage extends Component {
                     <Button 
                         onClick={() =>this.addingHandler(this.pushItemToApp())}
                         inStock={inStock} 
+                        className={inStock === false && 'button-out-of-stock-PDP'}
                         disabled={inStock === false? true : false || cartIsOpen === true? true:false}>
                             ADD TO CART
                         </Button>
                     <Desc>
-                        {description.replace(/<\/?[^>]+(>|$)/g, "")}
+                        {parse(description)}
                     </Desc>
                 </Right>
                 </Wrapper>

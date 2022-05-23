@@ -6,9 +6,6 @@ import styled from "styled-components";
 let Container = styled.div`
     padding-top: 32px;
     padding-bottom: 274px;
-
-    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
-    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
 `;
 
 const Wrapper = styled.div`
@@ -117,7 +114,7 @@ class Cart extends Component {
         const { productsInCart, currentCurrencyValue,handleChangeCart } = this.props;
    
         return (
-            <Container cartIsOpen={this.props.cartIsOpen}>
+            <Container>
                 <Wrapper>
                 <Title>
                     CART

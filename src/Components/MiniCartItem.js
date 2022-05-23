@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import GetCurrentPrice from '../Functions/GetCurrentPrice';
 import styled from "styled-components";
+import "../Styles/MiniCartItem.css";
 
 const Container = styled.div`
     margin: 32px 0px 0px;
@@ -45,7 +46,7 @@ const SmallTitle = styled.p`
 const SizeContainer = styled.div`
     display: flex;
 `;
-let SizeItem = styled.div`
+const SizeItem = styled.div`
     margin-top: 8px;
     margin-right: 8px;
     width: 24px;
@@ -58,9 +59,6 @@ let SizeItem = styled.div`
     align-items:center;
     justify-content: center;
     border: 1px solid #1D1F22;
-
-    background: ${props => props.chosen === "true" && 'black'};
-    color: ${props => props.chosen === "true" && 'white'};
 `;
 const Color = styled.div`
     margin-top: 8px;
@@ -70,22 +68,19 @@ const ColorContainer = styled.div`
     align-items: center;
 `;
 
-let ColorItemContainer = styled.div`
+const ColorItemContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     width: 17px;
     height: 17px;
     margin-right: 10px;
-    border: ${props => props.chosen === "true" && '2px solid #5ECE7B'};
 `;
 
-let ColorItem = styled.div`
+const ColorItem = styled.div`
     width: 16px;
     height: 16px;
-    
     background: ${props => props.bg};
-    height: ${props => props.chosen === "true" && '16px'};
 `;
 const Right = styled.div`
     display: flex;
@@ -193,7 +188,7 @@ class MiniCartItem extends Component {
                             <SizeItem 
                             style={par === "Capacity"? {width: 34, height: 34, fontSize: 10} : null}
                             key={i}
-                            chosen={getStatesHandler(par) === el? "true" : "false"}>
+                            className={getStatesHandler(par) === el && "chosen-size-item-MiniCart"}>
                                 {el.value}
                             </SizeItem>
                         ) 
@@ -220,10 +215,12 @@ class MiniCartItem extends Component {
                     <ColorContainer >
                     {items.map((el,i)=> {
                     return  (
-                            <ColorItemContainer  chosen={chosenColor === el.value? "true" :"false"}>
+                            <ColorItemContainer  
+                                key={i}
+                                className={chosenColor === el.value && "chosen-color-item-container-MiniCart"}>
                             <ColorItem 
-                            chosen={chosenColor === el.value? "true" :"false"} 
-                            bg={el.value}>
+                                className={chosenColor === el.value && "chosen-color-item-MiniCart"} 
+                                bg={el.value}>
                             </ColorItem>
                             </ColorItemContainer>
                         ) 

@@ -6,37 +6,21 @@ import { client } from '..';
 import { GetCurrencySign } from '../Functions/GetCurrencySign';
 import CountTotal from '../Functions/CountTotal';
 import styled from "styled-components";
+import "../Styles/Header.css"
 
 const Container = styled.div`
-   min-height: 78px; 
+   min-height: 82px; 
    display: flex;
    align-items: center;
    justify-content: space-between;
    max-width: 1280px;
-  margin: 0 auto;
+   margin: 0 auto;
 `;
 const Left = styled.div`
     display: flex;
 `;
-let Category = styled.div`
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 78px;
-    letter-spacing: 0px;
-    text-align: center;
-    margin: 0px 16px;
-    cursor: pointer;
+const Category = styled.div``;
 
-    color: ${props=> props.category  === 'true' ?'#5ECE7B ':'#1D1F22'};
-    border-bottom: ${props => props.category  === 'true' ? "2px solid #5ECE7B" : "none"};
-
-    &:hover {
-        color: #5ECE7B;
-        border-bottom: 2px solid #5ECE7B;
-    }
-
-    pointer-events: ${props=> props.disabled === true && "none"}
-`;
 const Center = styled.div`
     margin-right: 12%;
     display: flex;
@@ -75,15 +59,13 @@ const Currency = styled.div`
     position: relative;
 `;
 
-let CurrencySign = styled.div`
+const CurrencySign = styled.div`
     font-size: 18px;
     font-weight: 500;
     line-height: 29px;
     letter-spacing: 0em;
     color: #1D1F22;
     cursor: pointer;
-
-    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 const CurrencyVector = styled.img`
     width: 6px;
@@ -94,18 +76,20 @@ const CurrencyVector = styled.img`
 
 const CurrencyMenu = styled.div`
     position: absolute;
-    top: 93px;
+    top: 50px;
     left: -40px;
     width: 114px;
-    height: 169px;
+    height: auto;
     box-shadow: 0px 4px 35px #a8acb03d;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
     z-index: 1000;
+    background: white;
+
 `;
-let CurrencyItem = styled.div`
+const CurrencyItem = styled.div`
     width: 100%;
     text-align: center;
     padding: 14px 0px;
@@ -115,21 +99,17 @@ let CurrencyItem = styled.div`
     letter-spacing: 0em;
     cursor: pointer;
 
-    background: ${props => props.activeCurrency === 'true'? " #EEEEEE" : "white"};
-
     &: hover {
         background: #EEEEEE;
     }
 `;
 
-let CartContainer = styled.div`
+const CartContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
     position: relative;
-
-    pointer-events: ${props=> props.disabled === true && "none"}
 `;
 const CartImage = styled.img`
     width: 20px;
@@ -154,7 +134,7 @@ const CartQuantity = styled.div`
 
 const CartListContainer = styled.div`
     position: absolute;
-    top: 30px;
+    top: 50px;
     right: 0;
     width: 325px;
     padding: 32px 16px;
@@ -231,10 +211,8 @@ const ButtonCheck = styled.button`
     cursor: pointer;
 `;
 
-let StyledLink = styled(Link)`
+const StyledLink = styled(Link)`
     text-decoration: none;
-
-    pointer-events: ${props=> props.disabled === true && "none"};
 `;
 
 class Header extends Component {
@@ -253,6 +231,8 @@ class Header extends Component {
             totalTax: 0
         }
     }
+
+ 
 
     getActiveCurrencyValue = (value) => {
         this.setState(() => ({
@@ -287,7 +267,7 @@ class Header extends Component {
             return (
                 <CurrencyItem
                     key={i}
-                    activeCurrency={this.state.activeCurrencyValue === item.label? 'true' : 'false'} 
+                    className={this.state.activeCurrencyValue === item.label && 'active-currency-item'} 
                     onClick={() => this.onClickCurrency(item.label)}>
                     {item.symbol + item.label}
                 </CurrencyItem>
@@ -310,13 +290,14 @@ class Header extends Component {
         return this.state.categories.map((item,i)=> {
             let name = item.name;
             return (
-                <Link onClick={this.state.cartIsOpen === true? (e) => e.preventDefault() : null}
+                <Link  
+                    onClick={this.state.cartIsOpen === true? (e) => e.preventDefault() : null}
                     key={i}
                     to="/" 
                     style={{textDecoration: "none"}}>
                     <Category 
                         disabled={this.state.cartIsOpen === true? true : false} 
-                        category={this.state.activeCategory === item.name ? 'true' : 'false'} 
+                        className={this.state.activeCategory === item.name ? 'active-category' : 'non-active-category'} 
                         onClick={() => this.onClickCategory(item.name)}>
                         {name.charAt(0).toUpperCase() + name.slice(1)}
                     </Category>

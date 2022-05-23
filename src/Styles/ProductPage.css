@@ -1,0 +1,48 @@
+.out-of-stock-PDP {
+    position: absolute;
+    top: 45%;
+    left: 30%;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0px;
+    color: black;
+    opacity: 0;
+}
+
+.active-out-of-stock-PDP {
+    position: absolute;
+    top: 50%;
+    left: 30%;
+    font-size: 24px;
+    font-weight: 400;
+    line-height: 38px;
+    letter-spacing: 0px;
+    color: black;
+    opacity: 1;
+}
+
+.image-out-of-stock-PDP {
+    opacity: 0.5;
+}
+
+.active-small-image-PDP {
+    border: 1px solid #d7d7d778;
+}
+
+.chosen-attribute-item-PDP {
+    background: #1D1F22;
+    color: white;
+}
+
+.chosen-color-item-border-PDP {
+    border: 2px solid #5ECE7B;
+}
+
+.chosen-color-item-PDP {
+    height: 33px;
+}
+
+.button-out-of-stock-PDP {
+    opacity: 0.5;
+}

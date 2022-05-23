@@ -1,0 +1,12 @@
+.chosen-size-item-CartItem {
+    background:#1D1F22;
+    color: white;
+}
+
+.chosen-color-item-container-CartItem {
+    border: 2px solid #5ECE7B;
+}
+
+.chosen-color-item-CartItem {
+    height: 36px;
+}

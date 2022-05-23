@@ -3,10 +3,7 @@ import Product from './Product';
 import FetchCategory from '../Functions/FetchCategory';
 import styled from 'styled-components';
 
-let Container = styled.div`
-    backdrop-filter: ${props => props.cartIsOpen && 'brightness(90%)'};
-    filter: ${props => props.cartIsOpen && 'brightness(90%)'};
-`;
+let Container = styled.div``;
 
 const Wrapper = styled.div`
     max-width: 1280px;
@@ -34,7 +31,8 @@ class Products extends Component {
         super(props);
 
         this.state = {
-            currentCategory: []
+            currentCategory: [],
+            fetchedCurrentCategory: ""
         }
     }
 
@@ -59,46 +57,17 @@ class Products extends Component {
             
     }
 
-    componentDidMount() {
-        if(this.props.localCategory !== null) {
-            FetchCategory().then(res => {
-        
-                let categories = res.data.categories;
-                    
-                let filtered = categories.filter(el => el.name === this.props.localCategory);
-
-                let result = filtered[0].products
-                
-                setTimeout(() => {
-                    this.setState(()=>({
-                        currentCategory: result
-                    }))
-                },0)
-    
-                 })
-        }
+    async componentDidMount() {
+        const response = await FetchCategory(this.props.localCategory)
+        this.setState({currentCategory: response.products})
+        this.setState({fetchedCurrentCategory: response.name})
     }
-    
-    componentDidUpdate() {
 
-        if(this.props.localCategory !== null) {
-
-            FetchCategory().then(res => {
-        
-            let categories = res.data.categories;
-                
-            let filtered = categories.filter(el => el.name === this.props.localCategory);
-            
-            let result = filtered[0].products
-            
-            setTimeout(() => {
-                this.setState(()=>({
-                    currentCategory: result
-                }))
-            },0)
-
-            })
-
+    async componentDidUpdate() {
+        if(this.props.localCategory !== this.state.fetchedCurrentCategory){
+            const response = await FetchCategory(this.props.localCategory)
+            this.setState({currentCategory: response.products})
+            this.setState({fetchedCurrentCategory: response.name})
         }
     }
 
