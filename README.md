@@ -4,19 +4,18 @@ ________________________________________________________________________________
 <br>
 Update 18.05
 For today I have fixed these bugs: <br>
+1) Now data is fetched for one category only.<br>
+2) The product description rendered as HTML using html-parser.<br>
+3) The style prop with constant values moved to CSS.
+<br>
+<br>
+<br>
+_______________________________________________________________________________________________
+<br>
+Update 18.05
+For today I have fixed these bugs: <br>
 1) On CartPage after you change the currency the price and tax fields are changing.<br>
 2) On CartPage after you increase the amount of goods, the number above the cart icon is changing to a real amount.<br>
-<br>
-<br>
-Well. i tried my best, probably for now it is the biggest proect that I have done. I gave all myself to deal with <br>
-this project, but there is the riddle I didn't solve...it is attributes that must appears dynamicaly, but they <br>
-aren't. I tried my best to solve it but still it wasn't enough, probably wasn't enough experience as I still <br>
-learn React, and I have spent for learning only a month with a one week.<br>
-And I didn't ask anyone for help, so I did really felt lack of help and mentorship...I wish I have a friend programmer <br>
-who can help, but I don't, that is why it was the biggest programming chalange for me. I don't know if it will  <br>
-be enough for you, but nevertheless you can be sure that I have put my soul into this project and have done <br>
-my best and will do the same if I get the job!<br>
-Anyway thank you for this chance!<br>
 <br>
 <br>
 <br>
